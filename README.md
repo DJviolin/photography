@@ -7,3 +7,9 @@ Converted from a local Wordpress install with wget + gulp + mozjpeg, automated w
 Tutorial:
 
 https://blog.cloudflare.com/secure-and-fast-github-pages-with-cloudflare/
+
+Return github pages ip:
+
+```bash
+$ djviolin.github.io +noall +answer
+```
