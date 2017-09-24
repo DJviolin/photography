@@ -22,8 +22,6 @@ https://play.google.com/store/apps/details?id=tool.scanner.qrscan.barcodescan
 <body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
 
 <script>
-	var gltf = null;
-
 	////////////////////////////////////////////////////////////////////////////
 	//		Init
 	////////////////////////////////////////////////////////////////////////////
@@ -54,12 +52,12 @@ https://play.google.com/store/apps/details?id=tool.scanner.qrscan.barcodescan
 	scene.add(ambient);
 	var light1 = new THREE.DirectionalLight(0xffeedd);
 	light1.position.set(0, 0, 1);
-	light1.intensity = 1;
+	light1.intensity = 2;
 	light1.castShadow = false;
 	scene.add(light1);
 	var light2 = new THREE.DirectionalLight(0xffeedd);
 	light2.position.set(0, 5, -5);
-	light2.intensity = 1;
+	light2.intensity = 2;
 	light2.castShadow = false;
 	scene.add(light2);
 	
@@ -134,30 +132,31 @@ https://play.google.com/store/apps/details?id=tool.scanner.qrscan.barcodescan
 	//          Create a ArMarkerControls
 	////////////////////////////////////////////////////////////////////////////
 	
-	var markerRoot = new THREE.Group
-	scene.add(markerRoot)
+	var markerRoot = new THREE.Group;
+	scene.add(markerRoot);
 	var artoolkitMarker = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
 		type : 'pattern',
-		patternUrl : THREEx.ArToolkitContext.baseURL + 'data/patt.hiro'
-		// patternUrl : THREEx.ArToolkitContext.baseURL + 'data/patt.kanji'
-	})
+		patternUrl : THREEx.ArToolkitContext.baseURL + 'data/patt.hiro',
+		// patternUrl : THREEx.ArToolkitContext.baseURL + 'data/patt.kanji',
+	});
 
 	// build a smoothedControls
-	var smoothedRoot = new THREE.Group()
-	scene.add(smoothedRoot)
+	var smoothedRoot = new THREE.Group();
+	scene.add(smoothedRoot);
 	var smoothedControls = new THREEx.ArSmoothedControls(smoothedRoot, {
 		lerpPosition: 0.4,
 		lerpQuaternion: 0.3,
 		lerpScale: 1,
-	})
-	onRenderFcts.push(function(delta){
-		smoothedControls.update(markerRoot)
-	})
+	});
+	onRenderFcts.push(function (delta) {
+		smoothedControls.update(markerRoot);
+	});
+
 	////////////////////////////////////////////////////////////////////////////
 	//		add an object in the scene
 	////////////////////////////////////////////////////////////////////////////
 
-	var arWorldRoot = smoothedRoot
+	var arWorldRoot = smoothedRoot;
 
 	// add a torus knot	
 	/*var geometry	= new THREE.CubeGeometry(1,1,1);
@@ -181,48 +180,49 @@ https://play.google.com/store/apps/details?id=tool.scanner.qrscan.barcodescan
 	})*/
 
 	var loader = new THREE.GLTFLoader();
-	var url = THREEx.ArToolkitContext.baseURL + 'models/parlament2_2/model.glb';
+	var url = THREEx.ArToolkitContext.baseURL + 'models/parlament3/model.glb';
 	loader.load(url, function (data) {
-		gltf = data;
+		var gltf = data;
 		var object = gltf.scene;
 
-		var scale = 0.01;
+		//var scale = 0.01;
+		//object.scale.set(scale, scale, scale);
+
+		var scale = 1;
 		object.scale.set(scale, scale, scale);
+
 		object.rotation.y = 90 * (Math.PI / 180);
 
 		arWorldRoot.add(object);
-
-		/*onRenderFcts.push(function () {
-			object.rotation.x += 0.01;
-			object.rotation.y += 0.02;
-		});*/
 	});
 
 	////////////////////////////////////////////////////////////////////////////
 	//		render the whole thing on the page
 	////////////////////////////////////////////////////////////////////////////
+
 	var stats = new Stats();
-	document.body.appendChild( stats.dom );
+	document.body.appendChild(stats.dom);
+
 	// render the scene
-	onRenderFcts.push(function(){
-		renderer.render( scene, camera );
+	onRenderFcts.push(function () {
+		renderer.render(scene, camera);
 		stats.update();
-	})
+	});
 
 	// run the rendering loop
-	var lastTimeMsec= null
-	requestAnimationFrame(function animate(nowMsec){
+	var lastTimeMsec = null;
+	requestAnimationFrame(function animate(nowMsec) {
 		// keep looping
-		requestAnimationFrame( animate );
+		requestAnimationFrame(animate);
 		// measure time
-		lastTimeMsec	= lastTimeMsec || nowMsec-1000/60
-		var deltaMsec	= Math.min(200, nowMsec - lastTimeMsec)
-		lastTimeMsec	= nowMsec
+		lastTimeMsec = lastTimeMsec || nowMsec - 1000 / 60;
+		var deltaMsec = Math.min(200, nowMsec - lastTimeMsec);
+		lastTimeMsec = nowMsec;
 		// call each update function
-		onRenderFcts.forEach(function(onRenderFct){
-			onRenderFct(deltaMsec/1000, nowMsec/1000)
-		})
-	})
+		onRenderFcts.forEach(function (onRenderFct) {
+			onRenderFct(deltaMsec / 1000, nowMsec / 1000);
+		});
+	});
 </script>
 
 <!--<script>
