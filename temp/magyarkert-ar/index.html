@@ -48,16 +48,17 @@ https://play.google.com/store/apps/details?id=tool.scanner.qrscan.barcodescan
 
 	// Adding lights
 	var ambient = new THREE.AmbientLight(0x222222);
-	ambient.intensity = 1;
+	ambient.intensity = 2;
 	scene.add(ambient);
-	var light1 = new THREE.DirectionalLight(0xffeedd);
+
+	//var color = 0xffeedd;
+	var color = 0xffffff;
+	var light1 = new THREE.DirectionalLight(color, 1);
 	light1.position.set(0, 0, 1);
-	light1.intensity = 2;
 	light1.castShadow = false;
 	scene.add(light1);
-	var light2 = new THREE.DirectionalLight(0xffeedd);
+	var light2 = new THREE.DirectionalLight(color, 1);
 	light2.position.set(0, 5, -5);
-	light2.intensity = 2;
 	light2.castShadow = false;
 	scene.add(light2);
 	
