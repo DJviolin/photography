@@ -39,8 +39,8 @@ var app = {
 		}
 	},
 	init3: function init3(id) {
-		THREEx.ArToolkitContext.baseURL = '../www/';
-		//THREEx.ArToolkitContext.baseURL = '../';
+		//THREEx.ArToolkitContext.baseURL = '../www/';
+		THREEx.ArToolkitContext.baseURL = '../';
 
 		////////////////////////////////////////////////////////////////////////
 		//		Init
