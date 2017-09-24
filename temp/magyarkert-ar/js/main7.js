@@ -15,6 +15,7 @@ var app = {
 		document.onreadystatechange = function () {
 			if (document.readyState === 'complete') {
 				//initApplication();
+				console.log('readyState fired!');
 				_this.receivedEvent('deviceready');
 			}
 		}
