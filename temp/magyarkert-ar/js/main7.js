@@ -1,5 +1,7 @@
 'use strict';
 
+console.log('app started!');
+
 var app = {
 	// Application Constructor
 	initialize: function initialize() {
