@@ -3,16 +3,24 @@
 var app = {
 	// Application Constructor
 	initialize: function initialize() {
-		document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+		//document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+
+		// alternative to load event
+		document.onreadystatechange = function () {
+			if (document.readyState === 'complete') {
+				//initApplication();
+				this.receivedEvent('deviceready');
+			}
+		}
 	},
 
 	// deviceready Event Handler
 	//
 	// Bind any cordova events here. Common events are:
 	// 'pause', 'resume', etc.
-	onDeviceReady: function onDeviceReady() {
-		this.receivedEvent('deviceready');
-	},
+	//onDeviceReady: function onDeviceReady() {
+	//	this.receivedEvent('deviceready');
+	//},
 
 	// Update DOM on a Received Event
 	receivedEvent: function receivedEvent(id) {
