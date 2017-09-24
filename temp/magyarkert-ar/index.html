@@ -24,23 +24,38 @@
 	////////////////////////////////////////////////////////////////////////////
 
 	// init renderer
-	var renderer	= new THREE.WebGLRenderer({
-		// antialias	: true,
-		alpha: true
+	var renderer = new THREE.WebGLRenderer({
+		antialias: true,
+		alpha: true,
 	});
-	renderer.setClearColor(new THREE.Color('lightgrey'), 0)
-	// renderer.setPixelRatio( 1/2 );
-	renderer.setSize( window.innerWidth, window.innerHeight );
-	renderer.domElement.style.position = 'absolute'
-	renderer.domElement.style.top = '0px'
-	renderer.domElement.style.left = '0px'
-	document.body.appendChild( renderer.domElement );
+	renderer.setClearColor(0xcccccc, 0);
+	renderer.setPixelRatio(window.devicePixelRatio);
+	renderer.setSize(window.innerWidth, window.innerHeight);
+	renderer.domElement.style.position = 'absolute';
+	renderer.domElement.style.top = '0px';
+	renderer.domElement.style.left = '0px';
+	document.body.appendChild(renderer.domElement);
 
 	// array of functions for the rendering loop
-	var onRenderFcts= [];
+	var onRenderFcts = [];
 
 	// init scene and camera
-	var scene	= new THREE.Scene();
+	var scene = new THREE.Scene();
+
+	// Adding lights
+	var ambient = new THREE.AmbientLight(0x222222);
+	ambient.intensity = 1;
+	scene.add(ambient);
+	var light1 = new THREE.DirectionalLight(0xffeedd);
+	light1.position.set(0, 0, 1);
+	light1.intensity = 1;
+	light1.castShadow = false;
+	scene.add(light1);
+	var light2 = new THREE.DirectionalLight(0xffeedd);
+	light2.position.set(0, 5, -5);
+	light2.intensity = 1;
+	light2.castShadow = false;
+	scene.add(light2);
 	
 	////////////////////////////////////////////////////////////////////////////
 	//		Initialize a basic camera
@@ -65,49 +80,49 @@
 		// to read from a video
 		// sourceType : 'video',
 		// sourceUrl : THREEx.ArToolkitContext.baseURL + '../data/videos/headtracking.mp4',		
-	})
+	});
 
-	arToolkitSource.init(function onReady(){
-		onResize()
-	})
+	arToolkitSource.init(function onReady () {
+		onResize();
+	});
 	
 	// handle resize
-	window.addEventListener('resize', function(){
-		onResize()
-	})
-	function onResize(){
-		arToolkitSource.onResize()	
-		arToolkitSource.copySizeTo(renderer.domElement)	
-		if( arToolkitContext.arController !== null ){
-			arToolkitSource.copySizeTo(arToolkitContext.arController.canvas)	
-		}	
+	window.addEventListener('resize', function () {
+		onResize();
+	});
+	function onResize() {
+		arToolkitSource.onResizeElement();
+		arToolkitSource.copyElementSizeTo(renderer.domElement);
+		if (arToolkitContext.arController !== null) {
+			arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas);	
+		}
 	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//          initialize arToolkitContext
 	////////////////////////////////////////////////////////////////////////////
 	
-
 	// create atToolkitContext
 	var arToolkitContext = new THREEx.ArToolkitContext({
 		cameraParametersUrl: THREEx.ArToolkitContext.baseURL + 'data/camera_para.dat',
 		detectionMode: 'mono',
 		maxDetectionRate: 30,
-		canvasWidth: 80*3,
-		canvasHeight: 60*3,
+		canvasWidth: 80 * 3,
+		canvasHeight: 60 * 3,
 	})
 	// initialize it
-	arToolkitContext.init(function onCompleted(){
+	arToolkitContext.init(function onCompleted() {
 		// copy projection matrix to camera
-		camera.projectionMatrix.copy( arToolkitContext.getProjectionMatrix() );
-	})
+		camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
+	});
 
 	// update artoolkit on every frame
-	onRenderFcts.push(function(){
-		if( arToolkitSource.ready === false )	return
-
-		arToolkitContext.update( arToolkitSource.domElement )
-	})
-	
+	onRenderFcts.push(function () {
+		if (arToolkitSource.ready === false) {
+			return;
+		}
+		arToolkitContext.update(arToolkitSource.domElement);
+	});
 	
 	////////////////////////////////////////////////////////////////////////////
 	//          Create a ArMarkerControls
@@ -164,15 +179,17 @@
 	loader.load(url, function (data) {
 		gltf = data;
 		var object = gltf.scene;
-		var scale = 0.02;
+
+		var scale = 0.01;
 		object.scale.set(scale, scale, scale);
+		object.rotation.y = 90 * (Math.PI / 180);
 
 		arWorldRoot.add(object);
 
-		onRenderFcts.push(function () {
+		/*onRenderFcts.push(function () {
 			object.rotation.x += 0.01;
 			object.rotation.y += 0.02;
-		});
+		});*/
 	});
 
 	////////////////////////////////////////////////////////////////////////////
