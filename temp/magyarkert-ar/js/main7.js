@@ -5,11 +5,13 @@ var app = {
 	initialize: function initialize() {
 		//document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
 
+		var _this = this;
+
 		// alternative to load event
 		document.onreadystatechange = function () {
 			if (document.readyState === 'complete') {
 				//initApplication();
-				this.receivedEvent('deviceready');
+				_this.receivedEvent('deviceready');
 			}
 		}
 	},
