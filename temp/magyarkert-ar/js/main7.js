@@ -7,6 +7,8 @@ var app = {
 
 		var _this = this;
 
+		console.log('app.initialize() fired!');
+
 		// alternative to load event
 		document.onreadystatechange = function () {
 			if (document.readyState === 'complete') {
