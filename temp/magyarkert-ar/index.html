@@ -13,13 +13,9 @@ https://play.google.com/store/apps/details?id=tool.scanner.qrscan.barcodescan
 <!-- ar.js -->
 <script src='//rawcdn.githack.com/jeromeetienne/AR.js/42f3ce0baa168c8000afdab6b8f44c7580671cd1/three.js/build/ar.min.js'></script>
 
-<!--<script src='js/three.min.js'></script>
-<script src='js/stats.min.js'></script>
-<script src='js/ar.js'></script>-->
-
 <script>THREEx.ArToolkitContext.baseURL = './'</script>
 
-<body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
+<body style='margin: 0px; overflow: hidden; font-family: Monospace;'>
 
 <script>
 	////////////////////////////////////////////////////////////////////////////
@@ -109,11 +105,14 @@ https://play.google.com/store/apps/details?id=tool.scanner.qrscan.barcodescan
 	
 	// create atToolkitContext
 	var arToolkitContext = new THREEx.ArToolkitContext({
+		// AR backend - ['artoolkit', 'aruco', 'tango']
 		cameraParametersUrl: THREEx.ArToolkitContext.baseURL + 'data/camera_para.dat',
+		// the mode of detection - ['color', 'color_and_matrix', 'mono', 'mono_and_matrix']
 		detectionMode: 'mono',
 		maxDetectionRate: 30,
 		canvasWidth: 80 * 3,
 		canvasHeight: 60 * 3,
+		imageSmoothingEnabled: true,
 	})
 	// initialize it
 	arToolkitContext.init(function onCompleted() {
