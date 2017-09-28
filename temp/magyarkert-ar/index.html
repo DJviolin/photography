@@ -18,10 +18,12 @@ https://www.youtube.com/watch?v=KBneSfnXfZE
 <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
 <!-- three.js library -->
-<!--<script src='//rawcdn.githack.com/mrdoob/three.js/270f9db840c51ea5283bcf4200ea693946764354/build/three.min.js'></script>-->
-<script src='//rawcdn.githack.com/mrdoob/three.js/r83/build/three.min.js'></script>
+<!--<script src='//rawcdn.githack.com/mrdoob/three.js/270f9db840c51ea5283bcf4200ea693946764354/build/three.min.js'></script>
 <script src='//rawcdn.githack.com/mrdoob/three.js/270f9db840c51ea5283bcf4200ea693946764354/examples/js/loaders/GLTFLoader.js'></script>
-<script src='//rawcdn.githack.com/mrdoob/stats.js/28632bd87e0ea56acafc9b8779d813eb95e62c08/build/stats.min.js'></script>
+<script src='//rawcdn.githack.com/mrdoob/stats.js/28632bd87e0ea56acafc9b8779d813eb95e62c08/build/stats.min.js'></script>-->
+<script src='//rawcdn.githack.com/mrdoob/three.js/r87/build/three.min.js'></script>
+<script src='//rawcdn.githack.com/mrdoob/three.js/r87/examples/js/loaders/GLTFLoader.js'></script>
+<script src='//rawcdn.githack.com/mrdoob/three.js/r87/examples/js/libs/stats.min.js'></script>
 <!-- ar.js -->
 <script src='//rawcdn.githack.com/jeromeetienne/AR.js/42f3ce0baa168c8000afdab6b8f44c7580671cd1/three.js/build/ar.min.js'></script>
 
@@ -35,12 +37,7 @@ https://www.youtube.com/watch?v=KBneSfnXfZE
 	////////////////////////////////////////////////////////////////////////////
 
 	// init renderer
-	/*var renderer = new THREE.WebGLRenderer({
-		antialias: true,
-		alpha: true,
-		//logarithmicDepthBuffer: true, // logarithmic z-buffer
-	});*/
-	var renderer = new THREE.WebGL2Renderer({
+	var renderer = new THREE.WebGLRenderer({
 		antialias: true,
 		alpha: true,
 		//logarithmicDepthBuffer: true, // logarithmic z-buffer
