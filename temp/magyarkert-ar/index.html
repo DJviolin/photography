@@ -4,13 +4,22 @@ https://play.google.com/store/apps/details?id=tool.scanner.qrscan.barcodescan
 
 Marker training:
 https://archive.artoolkit.org/documentation/doku.php?id=3_Marker_Training:marker_about
+
+Multi markers:
+https://medium.com/arjs/area-learning-with-multi-markers-in-ar-js-1ff03a2f9fbe
+https://jeromeetienne.github.io/AR.js/three.js/examples/multi-markers/examples/player.html#%7B%22trackingBackend%22%3A%22artoolkit%22%7D
+https://www.youtube.com/watch?v=NyZ_dAlNBOI
+https://www.youtube.com/watch?v=K4yXpkoih2o
+https://www.youtube.com/watch?v=6DeouGKdfvI
+https://www.youtube.com/watch?v=KBneSfnXfZE
 -->
 
 <!DOCTYPE html>
 <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
 <!-- three.js library -->
-<script src='//rawcdn.githack.com/mrdoob/three.js/270f9db840c51ea5283bcf4200ea693946764354/build/three.min.js'></script>
+<!--<script src='//rawcdn.githack.com/mrdoob/three.js/270f9db840c51ea5283bcf4200ea693946764354/build/three.min.js'></script>-->
+<script src='//rawcdn.githack.com/mrdoob/three.js/r83/build/three.min.js'></script>
 <script src='//rawcdn.githack.com/mrdoob/three.js/270f9db840c51ea5283bcf4200ea693946764354/examples/js/loaders/GLTFLoader.js'></script>
 <script src='//rawcdn.githack.com/mrdoob/stats.js/28632bd87e0ea56acafc9b8779d813eb95e62c08/build/stats.min.js'></script>
 <!-- ar.js -->
@@ -26,7 +35,12 @@ https://archive.artoolkit.org/documentation/doku.php?id=3_Marker_Training:marker
 	////////////////////////////////////////////////////////////////////////////
 
 	// init renderer
-	var renderer = new THREE.WebGLRenderer({
+	/*var renderer = new THREE.WebGLRenderer({
+		antialias: true,
+		alpha: true,
+		//logarithmicDepthBuffer: true, // logarithmic z-buffer
+	});*/
+	var renderer = new THREE.WebGL2Renderer({
 		antialias: true,
 		alpha: true,
 		//logarithmicDepthBuffer: true, // logarithmic z-buffer
