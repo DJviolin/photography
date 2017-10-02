@@ -94,15 +94,7 @@ https://www.youtube.com/watch?v=KBneSfnXfZE
 
 	var arToolkitSource = new THREEx.ArToolkitSource({
 		// to read from the webcam 
-		sourceType : 'webcam',
-
-		// to read from an image
-		// sourceType : 'image',
-		// sourceUrl : THREEx.ArToolkitContext.baseURL + '../data/images/img.jpg',		
-
-		// to read from a video
-		// sourceType : 'video',
-		// sourceUrl : THREEx.ArToolkitContext.baseURL + '../data/videos/headtracking.mp4',		
+		sourceType: 'webcam',	
 	});
 
 	arToolkitSource.init(function onReady () {
@@ -181,7 +173,7 @@ https://www.youtube.com/watch?v=KBneSfnXfZE
 	var arWorldRoot = smoothedRoot;
 
 	var loader = new THREE.GLTFLoader();
-	var url = THREEx.ArToolkitContext.baseURL + 'models/parlament3/model.glb';
+	var url = THREEx.ArToolkitContext.baseURL + 'models/parlament/model.glb';
 	loader.load(url, function (data) {
 		var gltf = data;
 		var object = gltf.scene;
