@@ -182,6 +182,8 @@ ARjs.Source.prototype._initSourceWebcam = function(onReady, onError) {
 	navigator.mediaDevices.enumerateDevices().then(function(devices) {
 
 		// Added by Lanti
+		// https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
+		// https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/enumerateDevices
 		var backVideoInputId = false;
 		for (var i = devices.length - 1; i >= 0; i--) {
 			if (devices[i].kind === 'videoinput' && devices[i].label.indexOf("back") !== -1) {
@@ -197,7 +199,9 @@ ARjs.Source.prototype._initSourceWebcam = function(onReady, onError) {
     	var userMediaConstraints = {
 			audio: false,
 			video: {
-				facingMode: 'environment',
+				//facingMode: 'environment',
+				facingMode: { exact: "environment" },
+				frameRate: { ideal: 25, max: 30 },
 				deviceId: backVideoInputId,
 				width: {
 					ideal: _this.parameters.sourceWidth,
