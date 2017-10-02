@@ -181,15 +181,20 @@ ARjs.Source.prototype._initSourceWebcam = function(onReady, onError) {
 	// get available devices
 	navigator.mediaDevices.enumerateDevices().then(function(devices) {
 
-		var backVideoInputId = false
+		// Added by Lanti
+		var backVideoInputId = false;
 		for (var i = devices.length - 1; i >= 0; i--) {
-			if(
-        devices[i].kind === 'videoinput' &&
-        devices[i].label.indexOf("back") !== -1
-      ) backVideoInputId = devices[i].deviceId;
+			if (devices[i].kind === 'videoinput' && devices[i].label.indexOf("back") !== -1) {
+				backVideoInputId = devices[i].deviceId;
+			}
 		}
 
-    var userMediaConstraints = {
+		devices.forEach(function(device) {
+			console.log(device.kind + ": " + device.label + " id = " + device.deviceId);
+		});
+		console.log('backVideoInputId: ' + backVideoInputId);
+		
+    	var userMediaConstraints = {
 			audio: false,
 			video: {
 				facingMode: 'environment',
@@ -204,8 +209,8 @@ ARjs.Source.prototype._initSourceWebcam = function(onReady, onError) {
 					// min: 776,
 					// max: 1080
 				}
-	  	}
-    }
+	  		}
+    	}
 		// get a device which satisfy the constraints
 		navigator.mediaDevices.getUserMedia(userMediaConstraints).then(function success(stream) {
 			// set the .src of the domElement
@@ -216,7 +221,7 @@ ARjs.Source.prototype._initSourceWebcam = function(onReady, onError) {
 			})
 			// domElement.play();
 
-// TODO listen to loadedmetadata instead
+			// TODO listen to loadedmetadata instead
 			// wait until the video stream is ready
 			var interval = setInterval(function() {
 				if (!domElement.videoWidth)	return;
