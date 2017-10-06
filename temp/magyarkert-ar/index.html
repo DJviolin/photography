@@ -45,6 +45,7 @@ https://www.youtube.com/watch?v=KBneSfnXfZE
 	/*
 	MODEL LIST:
 	https://mesziair.hu/temp/magyarkert-ar/?model=parlament&debug=true
+	https://mesziair.hu/temp/magyarkert-ar/?model=sandor-palota&debug=true
 	*/
 
 	function getParameterByName(name, url) {
@@ -177,9 +178,9 @@ https://www.youtube.com/watch?v=KBneSfnXfZE
 	var markerRoot = new THREE.Group;
 	scene.add(markerRoot);
 	var artoolkitMarker = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
-		type : 'pattern',
-		patternUrl : THREEx.ArToolkitContext.baseURL + 'data/patt.hiro',
-		// patternUrl : THREEx.ArToolkitContext.baseURL + 'data/patt.kanji',
+		type: 'pattern',
+		patternUrl: THREEx.ArToolkitContext.baseURL + 'data/patt.hiro',
+		//patternUrl: THREEx.ArToolkitContext.baseURL + 'data/patt.kanji',
 	});
 
 	// build a smoothedControls
