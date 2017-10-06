@@ -186,7 +186,8 @@ ARjs.Source.prototype._initSourceWebcam = function(onReady, onError) {
 		// https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/enumerateDevices
 		var backVideoInputId = false;
 		for (var i = devices.length - 1; i >= 0; i--) {
-			if (devices[i].kind === 'videoinput' && devices[i].label.indexOf("back") !== -1) {
+			if (devices[i].kind === 'videoinput' && devices[i].label.indexOf("back") !== -1 ||
+				devices[i].kind === 'videoinput' && devices[i].label.indexOf("ManyCam") !== -1) {
 				backVideoInputId = devices[i].deviceId;
 			}
 		}
@@ -199,9 +200,8 @@ ARjs.Source.prototype._initSourceWebcam = function(onReady, onError) {
     	var userMediaConstraints = {
 			audio: false,
 			video: {
-				//facingMode: 'environment',
-				facingMode: { exact: "environment" },
-				frameRate: { ideal: 25, max: 30 },
+				facingMode: 'environment',
+				//frameRate: { ideal: 25, max: 30 },
 				deviceId: backVideoInputId,
 				width: {
 					ideal: _this.parameters.sourceWidth,

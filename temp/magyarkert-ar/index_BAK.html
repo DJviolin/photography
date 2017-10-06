@@ -40,49 +40,6 @@ https://www.youtube.com/watch?v=KBneSfnXfZE
 <body style='margin: 0px; overflow: hidden; font-family: Monospace;'>
 
 <script>
-	/*global THREE, THREEx*/
-
-	/*
-	Dimming issue caused by:
-	light.shadow.camera.near
-	light.shadow.camera.far
-	light.shadow.bias
-	light.shadow.mapSize
-	*/
-
-	/*
-	MODEL LIST:
-	http://127.0.0.1:8080/?model=boldogkoi-var&posY=0.7&rotX=0&rotY=270&rotZ=0&debug=true
-	http://127.0.0.1:8080/?model=parlament&posY=0.7&rotX=0&rotY=270&rotZ=0&debug=true
-	http://127.0.0.1:8080/?model=parlament2&ext=glb&posY=0.7&rotX=0&rotY=270&rotZ=0&debug=true
-	*/
-
-	function getParameterByName (name, url) {
-		if (!url) url = window.location.href;
-		name = name.replace(/[\[\]]/g, '\\$&');
-		var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-			results = regex.exec(url);
-		if (!results) return null;
-		if (!results[2]) return '';
-		return decodeURIComponent(results[2].replace(/\+/g, ' '));
-	}
-
-	var model = getParameterByName('model');
-	var posY = getParameterByName('posY');
-	var rotX = getParameterByName('rotX');
-	var rotY = getParameterByName('rotY');
-	var rotZ = getParameterByName('rotZ');
-	var debug = getParameterByName('debug');
-
-	var data = {
-		model: model,
-		posY: posY,
-		rotX: rotX,
-		rotY: rotY,
-		rotZ: rotZ,
-		debug: debug,
-	};
-
 	////////////////////////////////////////////////////////////////////////////
 	//		Init
 	////////////////////////////////////////////////////////////////////////////
@@ -109,7 +66,7 @@ https://www.youtube.com/watch?v=KBneSfnXfZE
 
 	// Adding lights
 	var ambient = new THREE.AmbientLight(0x222222);
-	ambient.intensity = 1.5;
+	ambient.intensity = 2;
 	scene.add(ambient);
 
 	//var color = 0xffeedd;
@@ -135,13 +92,10 @@ https://www.youtube.com/watch?v=KBneSfnXfZE
 	//          handle arToolkitSource
 	////////////////////////////////////////////////////////////////////////////
 
-	/*var arToolkitSource = new THREEx.ArToolkitSource({
+	var arToolkitSource = new THREEx.ArToolkitSource({
 		// to read from the webcam 
 		sourceType: 'webcam',	
-	});*/
-	var artoolkitProfile = new THREEx.ArToolkitProfile();
-	artoolkitProfile.sourceWebcam();
-	var arToolkitSource = new THREEx.ArToolkitSource(artoolkitProfile.sourceParameters);
+	});
 
 	arToolkitSource.init(function onReady() {
 		onResize();
@@ -219,8 +173,7 @@ https://www.youtube.com/watch?v=KBneSfnXfZE
 	var arWorldRoot = smoothedRoot;
 
 	var loader = new THREE.GLTFLoader();
-	//var url = THREEx.ArToolkitContext.baseURL + 'models/parlament/model.glb';
-	var url = THREEx.ArToolkitContext.baseURL + 'models/' + data.model + '/model.glb';
+	var url = THREEx.ArToolkitContext.baseURL + 'models/parlament/model.glb';
 	loader.load(url, function (data) {
 		var gltf = data;
 		var object = gltf.scene;
@@ -234,25 +187,14 @@ https://www.youtube.com/watch?v=KBneSfnXfZE
 	//		render the whole thing on the page
 	////////////////////////////////////////////////////////////////////////////
 
-	/*var stats = new Stats();
+	var stats = new Stats();
 	document.body.appendChild(stats.dom);
+
 	// render the scene
 	onRenderFcts.push(function () {
 		renderer.render(scene, camera);
 		stats.update();
-	});*/
-
-	// render the scene
-	onRenderFcts.push(function () {
-	renderer.render(scene, camera);
 	});
-	if (data.debug === 'true') {
-		var stats = new Stats();
-		document.body.appendChild(stats.dom);
-		onRenderFcts.push(function () {
-			stats.update();
-		});
-	}
 
 	// run the rendering loop
 	var lastTimeMsec = null;
