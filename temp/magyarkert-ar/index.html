@@ -218,8 +218,9 @@ https://www.youtube.com/watch?v=KBneSfnXfZE
 
 	// render the scene
 	onRenderFcts.push(function () {
-	renderer.render(scene, camera);
+		renderer.render(scene, camera);
 	});
+
 	if (data.debug === 'true') {
 		var stats = new Stats();
 		document.body.appendChild(stats.dom);
