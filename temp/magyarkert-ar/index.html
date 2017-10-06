@@ -43,43 +43,25 @@ https://www.youtube.com/watch?v=KBneSfnXfZE
 	/*global THREE, THREEx*/
 
 	/*
-	Dimming issue caused by:
-	light.shadow.camera.near
-	light.shadow.camera.far
-	light.shadow.bias
-	light.shadow.mapSize
-	*/
-
-	/*
 	MODEL LIST:
-	http://127.0.0.1:8080/?model=boldogkoi-var&posY=0.7&rotX=0&rotY=270&rotZ=0&debug=true
-	http://127.0.0.1:8080/?model=parlament&posY=0.7&rotX=0&rotY=270&rotZ=0&debug=true
-	http://127.0.0.1:8080/?model=parlament2&ext=glb&posY=0.7&rotX=0&rotY=270&rotZ=0&debug=true
+	https://mesziair.hu/temp/magyarkert-ar/?model=parlament&debug=true
 	*/
 
 	function getParameterByName (name, url) {
 		if (!url) url = window.location.href;
 		name = name.replace(/[\[\]]/g, '\\$&');
-		var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-			results = regex.exec(url);
+		var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+		var results = regex.exec(url);
 		if (!results) return null;
 		if (!results[2]) return '';
 		return decodeURIComponent(results[2].replace(/\+/g, ' '));
 	}
 
 	var model = getParameterByName('model');
-	var posY = getParameterByName('posY');
-	var rotX = getParameterByName('rotX');
-	var rotY = getParameterByName('rotY');
-	var rotZ = getParameterByName('rotZ');
 	var debug = getParameterByName('debug');
 
 	var data = {
 		model: model,
-		posY: posY,
-		rotX: rotX,
-		rotY: rotY,
-		rotZ: rotZ,
 		debug: debug,
 	};
 
