@@ -1,0 +1,249 @@
+<!--
+QR Code Scanners:
+https://play.google.com/store/apps/details?id=tool.scanner.qrscan.barcodescan
+
+Marker training:
+https://archive.artoolkit.org/documentation/doku.php?id=3_Marker_Training:marker_about
+
+Multi markers:
+https://medium.com/arjs/area-learning-with-multi-markers-in-ar-js-1ff03a2f9fbe
+https://jeromeetienne.github.io/AR.js/three.js/examples/multi-markers/examples/player.html#%7B%22trackingBackend%22%3A%22artoolkit%22%7D
+https://www.youtube.com/watch?v=NyZ_dAlNBOI
+https://www.youtube.com/watch?v=K4yXpkoih2o
+https://www.youtube.com/watch?v=6DeouGKdfvI
+https://www.youtube.com/watch?v=KBneSfnXfZE
+-->
+
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+<!-- three.js library -->
+<!--<script src='//rawcdn.githack.com/mrdoob/three.js/270f9db840c51ea5283bcf4200ea693946764354/build/three.min.js'></script>
+<script src='//rawcdn.githack.com/mrdoob/three.js/270f9db840c51ea5283bcf4200ea693946764354/examples/js/loaders/GLTFLoader.js'></script>
+<script src='//rawcdn.githack.com/mrdoob/stats.js/28632bd87e0ea56acafc9b8779d813eb95e62c08/build/stats.min.js'></script>-->
+<script src='//rawcdn.githack.com/mrdoob/three.js/r87/build/three.min.js'></script>
+<script src='//rawcdn.githack.com/mrdoob/three.js/r87/examples/js/loaders/GLTFLoader.js'></script>
+<script src='//rawcdn.githack.com/mrdoob/three.js/r87/examples/js/libs/stats.min.js'></script>
+<!-- ar.js -->
+<!--<script src='//rawcdn.githack.com/jeromeetienne/AR.js/42f3ce0baa168c8000afdab6b8f44c7580671cd1/three.js/build/ar.min.js'></script>-->
+<script src='//rawcdn.githack.com/artoolkit/jsartoolkit5/77733182a4c519b8e683cbf246a22920d94f3deb/build/artoolkit.min.js'></script>
+<!-- include threex.artoolkit -->
+<script src='js/threex-artoolkitsource-patched.js'></script>
+<script src='//rawcdn.githack.com/jeromeetienne/AR.js/d1c8eee0aef90911b633c741bbfecd56f99d2f6e/three.js/src/threex/threex-artoolkitcontext.js'></script>
+<script src='//rawcdn.githack.com/jeromeetienne/AR.js/bff94c157f2184590f0c4a38bb73a247ec9bf6fe/three.js/src/threex/threex-artoolkitprofile.js'></script>
+<script src='//rawcdn.githack.com/jeromeetienne/AR.js/305cbb896943f5138cb7f5be105882f7d8d32e25/three.js/src/threex/threex-arbasecontrols.js'></script>
+<script src='//rawcdn.githack.com/jeromeetienne/AR.js/305cbb896943f5138cb7f5be105882f7d8d32e25/three.js/src/threex/threex-armarkercontrols.js'></script>
+<script src='//rawcdn.githack.com/jeromeetienne/AR.js/305cbb896943f5138cb7f5be105882f7d8d32e25/three.js/src/threex/threex-arsmoothedcontrols.js'></script>
+
+<script>THREEx.ArToolkitContext.baseURL = './'</script>
+
+<body style='margin: 0px; overflow: hidden; font-family: Monospace;'>
+
+<script>
+	/*global THREE, THREEx*/
+
+	/*
+	MODEL LIST:
+	https://mesziair.hu/temp/magyarkert-ar/?model=parlament&debug=true
+	https://mesziair.hu/temp/magyarkert-ar/?model=sandor-palota&debug=true
+	*/
+
+	function getParameterByName(name, url) {
+		if (!url) url = window.location.href;
+		name = name.replace(/[\[\]]/g, '\\$&');
+		var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+		var results = regex.exec(url);
+		if (!results) return null;
+		if (!results[2]) return '';
+		return decodeURIComponent(results[2].replace(/\+/g, ' '));
+	}
+
+	var model = getParameterByName('model');
+	var debug = getParameterByName('debug');
+
+	var data = {
+		model: model,
+		debug: debug,
+	};
+
+	////////////////////////////////////////////////////////////////////////////
+	//		Init
+	////////////////////////////////////////////////////////////////////////////
+
+	// init renderer
+	var renderer = new THREE.WebGLRenderer({
+		antialias: true,
+		alpha: true,
+		//logarithmicDepthBuffer: true, // logarithmic z-buffer
+	});
+	renderer.setClearColor(0xcccccc, 0);
+	renderer.setPixelRatio(window.devicePixelRatio);
+	renderer.setSize(window.innerWidth, window.innerHeight);
+	renderer.domElement.style.position = 'absolute';
+	renderer.domElement.style.top = '0px';
+	renderer.domElement.style.left = '0px';
+	document.body.appendChild(renderer.domElement);
+
+	// array of functions for the rendering loop
+	var onRenderFcts = [];
+
+	// init scene and camera
+	var scene = new THREE.Scene();
+
+	// Adding lights
+	var ambient = new THREE.AmbientLight(0x222222);
+	ambient.intensity = 1.5;
+	scene.add(ambient);
+
+	//var color = 0xffeedd;
+	var color = 0xffffff;
+	var light1 = new THREE.DirectionalLight(color, 1);
+	light1.position.set(0, 0, 1);
+	light1.castShadow = false;
+	scene.add(light1);
+	var light2 = new THREE.DirectionalLight(color, 1);
+	light2.position.set(0, 5, -5);
+	light2.castShadow = false;
+	scene.add(light2);
+	
+	////////////////////////////////////////////////////////////////////////////
+	//		Initialize a basic camera
+	////////////////////////////////////////////////////////////////////////////
+
+	// Create a camera
+	var camera = new THREE.Camera();
+	scene.add(camera);
+
+	////////////////////////////////////////////////////////////////////////////
+	//          handle arToolkitSource
+	////////////////////////////////////////////////////////////////////////////
+
+	/*var arToolkitSource = new THREEx.ArToolkitSource({
+		// to read from the webcam 
+		sourceType: 'webcam',	
+	});*/
+	var artoolkitProfile = new THREEx.ArToolkitProfile();
+	artoolkitProfile.sourceWebcam();
+	var arToolkitSource = new THREEx.ArToolkitSource(artoolkitProfile.sourceParameters);
+
+	arToolkitSource.init(function onReady() {
+		onResize();
+	});
+	
+	// handle resize
+	window.addEventListener('resize', function () {
+		onResize();
+	});
+	function onResize() {
+		arToolkitSource.onResizeElement();
+		arToolkitSource.copyElementSizeTo(renderer.domElement);
+		if (arToolkitContext.arController !== null) {
+			arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas);	
+		}
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//          initialize arToolkitContext
+	////////////////////////////////////////////////////////////////////////////
+	
+	// create atToolkitContext
+	var arToolkitContext = new THREEx.ArToolkitContext({
+		// AR backend - ['artoolkit', 'aruco', 'tango']
+		cameraParametersUrl: THREEx.ArToolkitContext.baseURL + 'data/camera_para.dat',
+		// the mode of detection - ['color', 'color_and_matrix', 'mono', 'mono_and_matrix']
+		detectionMode: 'mono',
+		maxDetectionRate: 30,
+		canvasWidth: 80 * 3,
+		canvasHeight: 60 * 3,
+		imageSmoothingEnabled: true,
+	})
+	// initialize it
+	arToolkitContext.init(function onCompleted() {
+		// copy projection matrix to camera
+		camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
+	});
+
+	// update artoolkit on every frame
+	onRenderFcts.push(function () {
+		if (arToolkitSource.ready === false) {
+			return;
+		}
+		arToolkitContext.update(arToolkitSource.domElement);
+	});
+	
+	////////////////////////////////////////////////////////////////////////////
+	//          Create a ArMarkerControls
+	////////////////////////////////////////////////////////////////////////////
+	
+	var markerRoot = new THREE.Group;
+	scene.add(markerRoot);
+	var artoolkitMarker = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
+		type: 'pattern',
+		//patternUrl: THREEx.ArToolkitContext.baseURL + 'data/patt.hiro',
+		patternUrl: THREEx.ArToolkitContext.baseURL + 'data/patt.kanji',
+	});
+
+	// build a smoothedControls
+	var smoothedRoot = new THREE.Group();
+	scene.add(smoothedRoot);
+	var smoothedControls = new THREEx.ArSmoothedControls(smoothedRoot, {
+		lerpPosition: 0.4,
+		lerpQuaternion: 0.3,
+		lerpScale: 1,
+	});
+	onRenderFcts.push(function (delta) {
+		smoothedControls.update(markerRoot);
+	});
+
+	////////////////////////////////////////////////////////////////////////////
+	//		add an object in the scene
+	////////////////////////////////////////////////////////////////////////////
+
+	var arWorldRoot = smoothedRoot;
+
+	var loader = new THREE.GLTFLoader();
+	//var url = THREEx.ArToolkitContext.baseURL + 'models/parlament/model.glb';
+	var url = THREEx.ArToolkitContext.baseURL + 'models/' + data.model + '/model.glb';
+	loader.load(url, function (data) {
+		var gltf = data;
+		var object = gltf.scene;
+		var scale = 1;
+		object.scale.set(scale, scale, scale);
+		object.rotation.y = 90 * (Math.PI / 180);
+		arWorldRoot.add(object);
+	});
+
+	////////////////////////////////////////////////////////////////////////////
+	//		render the whole thing on the page
+	////////////////////////////////////////////////////////////////////////////
+
+	// render the scene
+	onRenderFcts.push(function () {
+		renderer.render(scene, camera);
+	});
+
+	if (data.debug === 'true') {
+		var stats = new Stats();
+		document.body.appendChild(stats.dom);
+		onRenderFcts.push(function () {
+			stats.update();
+		});
+	}
+
+	// run the rendering loop
+	var lastTimeMsec = null;
+	requestAnimationFrame(function animate(nowMsec) {
+		// keep looping
+		requestAnimationFrame(animate);
+		// measure time
+		lastTimeMsec = lastTimeMsec || nowMsec - 1000 / 60;
+		var deltaMsec = Math.min(200, nowMsec - lastTimeMsec);
+		lastTimeMsec = nowMsec;
+		// call each update function
+		onRenderFcts.forEach(function (onRenderFct) {
+			onRenderFct(deltaMsec / 1000, nowMsec / 1000);
+		});
+	});
+</script>
+
+</body>
