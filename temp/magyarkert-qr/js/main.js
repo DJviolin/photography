@@ -4,6 +4,9 @@
     TODO (es2015, stage-2, Minify):
     https://babeljs.io/repl/
 
+    TODO:
+    - IE 11 error for temlate literals
+
     Polyfill:
     https://github.com/github/fetch
 
