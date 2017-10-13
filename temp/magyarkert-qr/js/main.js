@@ -35,6 +35,7 @@ var init = function (city) {
                 <p>${name}</p>
                 <p>${description}</p>
                 <p>${pictures}</p>
+                <p>${pictures.map(item => `<img src="${item}" alt="" />`)}</p>
             </article>
         `;
     }

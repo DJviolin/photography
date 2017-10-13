@@ -2,7 +2,7 @@
     "name": "Jakabszállás",
     "description": "Ez egy leírás amely <a href=\"#\">linket</a> is tartalmaz!",
     "pictures": [
-        "img1.jpg",
-        "img2.jpg"
+        "https://upload.wikimedia.org/wikipedia/commons/e/e6/Jakabsz%C3%A1ll%C3%A1s2.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/d/dd/Jakabsz%C3%A1ll%C3%A1s1.jpg"
     ]
 }
