@@ -22,6 +22,30 @@ var data = {
 };
 console.log(`city == ${data.city}`);
 
+/*var getData = function (city) {
+    //var g = container;
+    var container;
+    var link = 'https://magyarkert.com/qr/data/' + city + '/data.json';
+    var request = new XMLHttpRequest();
+    request.open('GET', link, false); // false sets the async to false
+    request.onload = function () {
+    if (request.status >= 200 && request.status < 400) {
+        // Success!
+        //var data = JSON.parse(request.responseText);
+        container = JSON.parse(request.responseText);
+    } else {
+        // We reached our target server, but it returned an error
+    }
+    };
+    request.onerror = function () {
+        // There was a connection error of some sort
+    };
+    request.send();
+    return container;
+}
+//console.log(`json == ${JSON.stringify(getData(data.city), null, 4)}`);
+console.log(`json == ${getData('jakabszallas')}`);*/
+
 var init = function (city) {
     const app = document.getElementById('app');
     var streams = 'data/' + city + '/data.json';
