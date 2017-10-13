@@ -1,6 +1,7 @@
 'use strict';
 
 /*
+    TODO (es2015, stage-2, Minify):
     https://babeljs.io/repl/
 
     Polyfill:
