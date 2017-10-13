@@ -1,9 +1,8 @@
 'use strict';
 
 /*
-    MODEL LIST:
-    https://mesziair.hu/temp/magyarkert-ar/?model=parlament&debug=true
-    https://mesziair.hu/temp/magyarkert-ar/?model=sandor-palota&debug=true
+    URL LIST:
+    http://magyarkert.com/qr/?c=jakabszallas
 */
 
 function getParameterByName(name, url) {
