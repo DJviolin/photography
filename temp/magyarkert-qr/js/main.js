@@ -42,7 +42,7 @@ function getJSON(city) {
     request.onerror = function() {
       // There was a connection error of some sort
     };
-    request.send();
+    return request.send();
 }
 
 console.log(`json == ${getJSON('jakabszallas')}`);
