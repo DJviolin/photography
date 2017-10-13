@@ -8,7 +8,7 @@
     https://github.com/github/fetch
 
     URL LIST:
-    http://magyarkert.com/qr/?city=jakabszallas
+    http://magyarkert.com/qr/?c=jakabszallas
 */
 
 function getParameterByName(name, url) {
@@ -24,7 +24,7 @@ var city = getParameterByName('c');
 var data = {
     city: city,
 };
-console.log(`city == ${data.city}`);
+//console.log(`city == ${data.city}`);
 
 var init = function (city) {
     const app = document.getElementById('app');
@@ -47,11 +47,11 @@ var init = function (city) {
                 json.description,
                 json.pictures,
             );
-            console.log(`${JSON.stringify(json, null, 4)}`);
+            //console.log(`${JSON.stringify(json, null, 4)}`);
         })
         .catch((error) => {
             app.innerHTML = "<h1>404</h1><h3>Az oldal nem létezik</3>";
-            console.log('fetch(catch): Network response was not ok.')
+            //console.log('fetch(catch): Network response was not ok.')
         });
 }
 
