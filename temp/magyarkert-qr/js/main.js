@@ -28,34 +28,29 @@ console.log(`city == ${data.city}`);
 var init = function (city) {
     const app = document.getElementById('app');
     var streams = 'data/' + city + '/data.json';
-
     function apiDisplay(name, description, pictures) {
         return `
             <article class="city">
                 <p>${name}</p>
                 <p>${description}</p>
                 <p>${pictures}</p>
-                <p>${pictures.map(item => `<img src="${item}" alt="" />`)}</p>
+                <p>${pictures.map(item => `<img src="${item}" alt="" />`).join('')}</p>
             </article>
         `;
     }
-
     return fetch(streams)
         .then(response => (response.ok ? response.json() : console.log('fetch(streams): Network response was not ok.')))
         .then((json) => {
-            console.log(`${JSON.stringify(json, null, 4)}`);
             app.innerHTML += apiDisplay(
                 json.name,
                 json.description,
                 json.pictures,
             );
+            console.log(`${JSON.stringify(json, null, 4)}`);
         })
         .catch((error) => {
-            app.innerHTML += apiDisplay(
-                'unavailable',
-                'unavailable',
-                'unavailable',
-            );
+            app.innerHTML = "<h1>404</h1><h3>Az oldal nem létezik</3>";
+            console.log('fetch(catch): Network response was not ok.')
         });
 }
 
