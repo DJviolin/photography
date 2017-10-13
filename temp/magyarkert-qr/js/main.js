@@ -27,13 +27,15 @@ console.log(`city == ${data.city}`);
 
 function getJSON(city) {
     var link = 'http://magyarkert.com/qr/data/' + city + '/data.json';
+    var data;
 
     var request = new XMLHttpRequest();
     request.open('GET', link, true);
     request.onload = function() {
       if (request.status >= 200 && request.status < 400) {
         // Success!
-        var data = JSON.parse(request.responseText);
+        //var data = JSON.parse(request.responseText);
+        data = JSON.parse(request.responseText);
       } else {
         // We reached our target server, but it returned an error
     
@@ -42,7 +44,9 @@ function getJSON(city) {
     request.onerror = function() {
       // There was a connection error of some sort
     };
-    return request.send();
+    request.send();
+
+    return data;
 }
 
 console.log(`json == ${getJSON('jakabszallas')}`);
