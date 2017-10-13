@@ -29,7 +29,7 @@ function getJSON(city) {
     var link = 'http://magyarkert.com/qr/data/' + city + '/data.json';
 
     var request = new XMLHttpRequest();
-    request.open('GET', url, true);
+    request.open('GET', link, true);
     request.onload = function() {
       if (request.status >= 200 && request.status < 400) {
         // Success!
