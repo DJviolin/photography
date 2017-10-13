@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>basic example</title>
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script type="text/javascript" src="jquery.qrcode.min.js"></script>
+
+<p>Render in table</p>
+<div id="qrcodeTable"></div>
+
+<p>Render in canvas</p>
+<div id="qrcodeCanvas"></div>
+
+<script>
+	var data = {
+		size: 512,
+		url: "http://magyarkert.com/qr/?c=jakabszallas",
+	};
+	jQuery('#qrcodeTable').qrcode({
+		render: "table",
+		width: data.size,
+		height: data.size,
+		text: data.url,
+	});	
+	jQuery('#qrcodeCanvas').qrcode({
+		render: "canvas",
+		width: data.size,
+		height: data.size,
+		text: data.url,
+	});	
+</script>
+
+</body>
+</html>
