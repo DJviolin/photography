@@ -3,6 +3,9 @@
 /*
     https://babeljs.io/repl/
 
+    Polyfill:
+    https://github.com/github/fetch
+
     URL LIST:
     http://magyarkert.com/qr/?city=jakabszallas
 */
