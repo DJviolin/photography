@@ -47,11 +47,11 @@ var init = function (city, debug) {
         var head = document.getElementsByTagName('head')[0];
         var script = document.createElement('script');
         script.type = 'text/javascript';
-        script.defer = true;
         script.onload = function () {
-            console.log('The "' + vendor + '" script is loaded');
+            console.log('The "' + vendor + '" script is loaded!');
         }
         script.src = 'js/vendor/jquery.min.js';
+        script.defer = true;
         head.appendChild(script);
     }
     function qrCodeDisplay(url) {
