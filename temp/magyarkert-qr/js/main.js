@@ -46,6 +46,7 @@ var init = function (city, debug) {
     function qrCodeDisplay(url) {
         return `
             <script type="text/javascript" defer>
+                console.log('Hello, World from qrData!');
                 var qrData = {
                     size: 295, // 2.5cm at 300dpi
                     url: "http://magyarkert.com/qr/?c=${url}",
@@ -74,6 +75,16 @@ var init = function (city, debug) {
             //document.body.appendChild(div);
             if (debug === "true") {
                 document.body.innerHTML += qrCodeDisplay(json.url);
+
+                var script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.charset = 'utf-8';
+                script.id = 'qrcode';
+                script.defer = true;
+                script.async = false;
+                script.text = ["console.log('Hello, World 1!');",
+                "console.log('Hello, World 2!');"].join('');
+                document.body.appendChild(script);
             }
         })
         .catch((error) => {
