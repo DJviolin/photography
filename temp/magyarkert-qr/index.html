@@ -18,11 +18,33 @@
 
     <!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" crossorigin="anonymous"></script>-->
     <script src="js/main.js"></script>
+
+    <!--<script type="text/javascript">
+        if (true) {
+            document.write('<script src="//code.jquery.com/jquery-1.5.2.min.js" async><\/script>')
+            document.write('<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js" async><\/script>')
+            document.write(`
+                <script>
+                    var data = {
+                        size: 295, // 2.5cm at 300dpi
+                        url: "http://magyarkert.com/qr/?c=jakabszallas",
+                    };
+                    jQuery('#qrcodeCanvas').qrcode({
+                        render: "canvas",
+                        width: data.size,
+                        height: data.size,
+                        text: data.url,
+                    });	
+                </script>
+            `)
+        }
+    </script>-->
+
     <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
-    <script>
+    <!--<script>
         window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
         ga('create','UA-XXXXX-Y','auto');ga('send','pageview')
     </script>
-    <script src="//www.google-analytics.com/analytics.js" async defer></script>
+    <script src="//www.google-analytics.com/analytics.js" async defer></script>-->
 </body>
 </html>

@@ -24,12 +24,14 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 var city = getParameterByName('c');
+var debug = getParameterByName('debug');
 var data = {
     city: city,
+    debug: debug,
 };
 //console.log(`city == ${data.city}`);
 
-var init = function (city) {
+var init = function (city, debug) {
     const app = document.getElementById('app');
     var streams = 'data/' + city + '/data.json';
     function apiDisplay(name, description, pictures) {
@@ -42,6 +44,27 @@ var init = function (city) {
             </article>
         `;
     }
+    function qrCodeDisplay(url) {
+        if (debug === true) {
+            return `
+                <script src="//code.jquery.com/jquery-1.5.2.min.js" async></script>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js" async></script>
+                <div id="qrcodeCanvas"></div>
+                <script>
+                    var data = {
+                        size: 295, // 2.5cm at 300dpi
+                        url: "http://magyarkert.com/qr/?c=${url}",
+                    };
+                    jQuery('#qrcodeCanvas').qrcode({
+                        render: "canvas",
+                        width: data.size,
+                        height: data.size,
+                        text: data.url,
+                    });	
+                </script>
+            `;
+        }
+    }
     return fetch(streams)
         .then(response => (response.ok ? response.json() : console.log('fetch(streams): Network response was not ok.')))
         .then((json) => {
@@ -51,6 +74,10 @@ var init = function (city) {
                 json.pictures,
             );
             //console.log(`${JSON.stringify(json, null, 4)}`);
+            var div = document.createElement("div");
+            //div.innerHTML += qrCodeDisplay(json.url);
+            //document.body.appendChild(div);
+            document.body.innerHTML += qrCodeDisplay(json.url);
         })
         .catch((error) => {
             app.innerHTML = "<h1>404</h1><h3>Az oldal nem létezik</3>";
@@ -59,5 +86,5 @@ var init = function (city) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    return init(data.city);
+    return init(data.city, data.debug);
 });
