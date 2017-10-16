@@ -1,5 +1,3 @@
-'use strict';
-
 /*
     TODO (es2015, stage-2, Minify):
     https://babeljs.io/repl/
@@ -47,10 +45,11 @@ var init = function (city, debug) {
     function qrCodeDisplay(url) {
         if (debug === "true") {
             return `
-                <script type="text/javascript" src="//code.jquery.com/jquery-1.5.2.min.js" async></script>
-                <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js" async></script>
+                <!--<script type="text/javascript" src="//code.jquery.com/jquery-1.5.2.min.js" async></script>
+                <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js" async></script>-->
+                
                 <div id="qrcodeCanvas"></div>
-                <script type="text/javascript">
+                <script type="text/javascript" defer>
                     var data = {
                         size: 295, // 2.5cm at 300dpi
                         url: "http://magyarkert.com/qr/?c=${url}",
@@ -63,6 +62,8 @@ var init = function (city, debug) {
                     });	
                 </script>
             `;
+        } else {
+            return;
         }
     }
     return fetch(streams)
