@@ -43,7 +43,7 @@ var init = function (city, debug) {
             </article>
         `;
     }
-    function scriptLoader(vendor) {
+    /*function scriptLoader(vendor) {
         var head = document.getElementsByTagName('head')[0];
         var script = document.createElement('script');
         script.type = 'text/javascript';
@@ -53,19 +53,39 @@ var init = function (city, debug) {
         script.src = vendor;
         script.defer = true;
         head.appendChild(script);
-    }
-    async function qrCodeDisplay(url) {
-        await scriptLoader('js/vendor/jquery.min.js');
-        await scriptLoader('js/vendor/jquery.qrcode.min.js');
+    }*/
+    function qrCodeDisplay(url) {
+        //await scriptLoader('js/vendor/jquery.min.js');
+        //await scriptLoader('js/vendor/jquery.qrcode.min.js');
+
+        var head = document.getElementsByTagName('head')[0];
+
+        var scriptJquery = document.createElement('script');
+        scriptJquery.type = 'text/javascript';
+        /*scriptJquery.onload = function () {
+            console.log('The scriptJquery is loaded!');
+        }*/
+        scriptJquery.src = 'js/vendor/jquery.min.js';
+        scriptJquery.defer = true;
+        head.appendChild(scriptJquery);
+
+        var scriptQr = document.createElement('script');
+        scriptQr.type = 'text/javascript';
+        /*scriptQr.onload = function () {
+            console.log('The scriptQr is loaded!');
+        }*/
+        scriptQr.src = 'js/vendor/jquery.qrcode.min.js';
+        scriptQr.defer = true;
+        head.appendChild(scriptQr);
 
         var script = document.createElement('script');
         script.type = 'text/javascript';
         script.defer = true;
-        script.onload = function () {
+        /*script.onload = function () {
             console.log('The script is loaded');
-        }
+        }*/
         script.text = "" +
-            "console.log('Hello, World from qrData!');" +
+            //"console.log('Hello, World from qrData!');" +
             "var qrData = {" +
             "    size: 295, /*2.5cm at 300dpi*/" +
             "    url: \"http://magyarkert.com/qr/?c=" + url + "\"," +
