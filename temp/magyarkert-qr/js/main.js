@@ -12,7 +12,7 @@
     http://magyarkert.com/qr/?c=jakabszallas
 */
 
-function getParameterByName(name, url) {
+/*function getParameterByName(name, url) {
     if (!url) url = window.location.href;
     name = name.replace(/[\[\]]/g, '\\$&');
     var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
@@ -23,11 +23,12 @@ function getParameterByName(name, url) {
 }
 var city = getParameterByName('c');
 var debug = getParameterByName('debug');
-var data = {
+//var data = {
+data = {
     city: city,
     debug: debug,
 };
-//console.log(`city == ${data.city}`);
+//console.log(`city == ${data.city}`);*/
 
 var init = function (city, debug) {
     const app = document.getElementById('app');
@@ -45,20 +46,16 @@ var init = function (city, debug) {
     function qrCodeDisplay(url) {
         if (debug === "true") {
             return `
-                <!--<script type="text/javascript" src="//code.jquery.com/jquery-1.5.2.min.js" async></script>
-                <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js" async></script>-->
-                
-                <div id="qrcodeCanvas"></div>
                 <script type="text/javascript" defer>
-                    var data = {
+                    var qrData = {
                         size: 295, // 2.5cm at 300dpi
                         url: "http://magyarkert.com/qr/?c=${url}",
                     };
                     jQuery('#qrcodeCanvas').qrcode({
                         render: "canvas",
-                        width: data.size,
-                        height: data.size,
-                        text: data.url,
+                        width: qrData.size,
+                        height: qrData.size,
+                        text: qrData.url,
                     });	
                 </script>
             `;
@@ -76,10 +73,10 @@ var init = function (city, debug) {
             );
             //console.log(`${JSON.stringify(json, null, 4)}`);
 
-            var div = document.createElement("div");
-            document.body.innerHTML += qrCodeDisplay(json.url);
+            //var div = document.createElement("div");
             //div.innerHTML += qrCodeDisplay(json.url);
             //document.body.appendChild(div);
+            document.body.innerHTML += qrCodeDisplay(json.url);
         })
         .catch((error) => {
             app.innerHTML = "<h1>404</h1><h3>Az oldal nem létezik</3>";
