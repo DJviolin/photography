@@ -45,12 +45,12 @@ var init = function (city, debug) {
         `;
     }
     function qrCodeDisplay(url) {
-        if (debug === true) {
+        if (debug === "true") {
             return `
-                <script src="//code.jquery.com/jquery-1.5.2.min.js" async></script>
-                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js" async></script>
+                <script type="text/javascript" src="//code.jquery.com/jquery-1.5.2.min.js" async></script>
+                <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js" async></script>
                 <div id="qrcodeCanvas"></div>
-                <script>
+                <script type="text/javascript">
                     var data = {
                         size: 295, // 2.5cm at 300dpi
                         url: "http://magyarkert.com/qr/?c=${url}",
@@ -74,10 +74,11 @@ var init = function (city, debug) {
                 json.pictures,
             );
             //console.log(`${JSON.stringify(json, null, 4)}`);
+
             var div = document.createElement("div");
+            document.body.innerHTML += qrCodeDisplay(json.url);
             //div.innerHTML += qrCodeDisplay(json.url);
             //document.body.appendChild(div);
-            document.body.innerHTML += qrCodeDisplay(json.url);
         })
         .catch((error) => {
             app.innerHTML = "<h1>404</h1><h3>Az oldal nem létezik</3>";
