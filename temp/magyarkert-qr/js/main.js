@@ -43,26 +43,20 @@ var init = function (city, debug) {
             </article>
         `;
     }
-    function qrCodeDisplay(url) {
+    function scriptLoader(vendor) {
         var head = document.getElementsByTagName('head')[0];
-
-        var scriptJquery = document.createElement('script');
-        scriptJquery.type = 'text/javascript';
-        scriptJquery.defer = true;
-        scriptJquery.onload = function () {
-            console.log('The scriptJquery is loaded');
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.defer = true;
+        script.onload = function () {
+            console.log('The "' + vendor + '" script is loaded');
         }
-        scriptJquery.src = 'js/vendor/jquery.min.js';
-        head.appendChild(scriptJquery);
-
-        var scriptQrCode = document.createElement('script');
-        scriptQrCode.type = 'text/javascript';
-        scriptQrCode.defer = true;
-        scriptQrCode.onload = function () {
-            console.log('The scriptQrCode is loaded');
-        }
-        scriptQrCode.src = 'js/vendor/jquery.qrcode.min.js';
-        head.appendChild(scriptQrCode);
+        script.src = 'js/vendor/jquery.min.js';
+        head.appendChild(script);
+    }
+    function qrCodeDisplay(url) {
+        scriptLoader('js/vendor/jquery.min.js');
+        scriptLoader('js/vendor/jquery.qrcode.min.js');
 
         var script = document.createElement('script');
         script.type = 'text/javascript';
