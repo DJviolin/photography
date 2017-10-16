@@ -54,9 +54,9 @@ var init = function (city, debug) {
         script.defer = true;
         head.appendChild(script);
     }
-    async function qrCodeDisplay(url, callback) {
-        scriptLoader('js/vendor/jquery.min.js');
-        scriptLoader('js/vendor/jquery.qrcode.min.js');
+    async function qrCodeDisplay(url) {
+        await scriptLoader('js/vendor/jquery.min.js');
+        await scriptLoader('js/vendor/jquery.qrcode.min.js');
 
         var script = document.createElement('script');
         script.type = 'text/javascript';
@@ -77,7 +77,7 @@ var init = function (city, debug) {
             "    text: qrData.url," +
             "});" +
         "";
-        await document.body.appendChild(script);
+        document.body.appendChild(script);
     }
     return fetch(streams)
         .then(response => (response.ok ? response.json() : console.log('fetch(streams): Network response was not ok.')))
