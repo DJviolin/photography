@@ -82,8 +82,24 @@ var init = function (city, debug) {
                 script.id = 'qrcode';
                 script.defer = true;
                 script.async = false;
-                script.text = ["console.log('Hello, World 1!');",
-                "console.log('Hello, World 2!');"].join('');
+                script.onload = function () {
+                    console.log('The script is loaded');
+                }
+                script.text = "" +
+                    "console.log('Hello, World from qrData!');" +
+                    "var qrData = {" +
+                    "    size: 295, /*2.5cm at 300dpi*/" +
+                    "    url: \"http://magyarkert.com/qr/?c=${url}\"," +
+                    "};" +
+                    "jQuery('#qrcodeCanvas').qrcode({" +
+                    "    render: \"canvas\"," +
+                    "    width: qrData.size," +
+                    "    height: qrData.size," +
+                    "    text: qrData.url," +
+                    "});" +
+                "";
+                //var body = document.getElementsByTagName('body')[0];
+                //body.appendChild(script);
                 document.body.appendChild(script);
             }
         })
