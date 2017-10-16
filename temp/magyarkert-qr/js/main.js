@@ -44,24 +44,20 @@ var init = function (city, debug) {
         `;
     }
     function qrCodeDisplay(url) {
-        if (debug === "true") {
-            return `
-                <script type="text/javascript" defer>
-                    var qrData = {
-                        size: 295, // 2.5cm at 300dpi
-                        url: "http://magyarkert.com/qr/?c=${url}",
-                    };
-                    jQuery('#qrcodeCanvas').qrcode({
-                        render: "canvas",
-                        width: qrData.size,
-                        height: qrData.size,
-                        text: qrData.url,
-                    });	
-                </script>
-            `;
-        } else {
-            return;
-        }
+        return `
+            <script type="text/javascript" defer>
+                var qrData = {
+                    size: 295, // 2.5cm at 300dpi
+                    url: "http://magyarkert.com/qr/?c=${url}",
+                };
+                jQuery('#qrcodeCanvas').qrcode({
+                    render: "canvas",
+                    width: qrData.size,
+                    height: qrData.size,
+                    text: qrData.url,
+                });	
+            </script>
+        `;
     }
     return fetch(streams)
         .then(response => (response.ok ? response.json() : console.log('fetch(streams): Network response was not ok.')))
@@ -76,7 +72,9 @@ var init = function (city, debug) {
             //var div = document.createElement("div");
             //div.innerHTML += qrCodeDisplay(json.url);
             //document.body.appendChild(div);
-            document.body.innerHTML += qrCodeDisplay(json.url);
+            if (debug === "true") {
+                document.body.innerHTML += qrCodeDisplay(json.url);
+            }
         })
         .catch((error) => {
             app.innerHTML = "<h1>404</h1><h3>Az oldal nem létezik</3>";
