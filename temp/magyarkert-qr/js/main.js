@@ -12,7 +12,7 @@
     http://magyarkert.com/qr/?c=jakabszallas
 */
 
-/*function getParameterByName(name, url) {
+function getParameterByName(name, url) {
     if (!url) url = window.location.href;
     name = name.replace(/[\[\]]/g, '\\$&');
     var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
@@ -28,7 +28,7 @@ data = {
     city: city,
     debug: debug,
 };
-//console.log(`city == ${data.city}`);*/
+//console.log(`city == ${data.city}`);
 
 var init = function (city, debug) {
     const app = document.getElementById('app');
@@ -44,12 +44,29 @@ var init = function (city, debug) {
         `;
     }
     function qrCodeDisplay(url) {
+        var head = document.getElementsByTagName('head')[0];
+
+        var scriptJquery = document.createElement('script');
+        scriptJquery.type = 'text/javascript';
+        scriptJquery.defer = true;
+        scriptJquery.onload = function () {
+            console.log('The scriptJquery is loaded');
+        }
+        scriptJquery.src = 'js/vendor/jquery.min.js';
+        head.appendChild(scriptJquery);
+
+        var scriptQrCode = document.createElement('script');
+        scriptQrCode.type = 'text/javascript';
+        scriptQrCode.defer = true;
+        scriptQrCode.onload = function () {
+            console.log('The scriptQrCode is loaded');
+        }
+        scriptQrCode.src = 'js/vendor/jquery.qrcode.min.js';
+        head.appendChild(scriptQrCode);
+
         var script = document.createElement('script');
         script.type = 'text/javascript';
-        script.charset = 'utf-8';
-        script.id = 'qrcode';
         script.defer = true;
-        script.async = false;
         script.onload = function () {
             console.log('The script is loaded');
         }
@@ -66,8 +83,7 @@ var init = function (city, debug) {
             "    text: qrData.url," +
             "});" +
         "";
-        //var body = document.getElementsByTagName('body')[0];
-        //body.appendChild(script);
+        //head.appendChild(script);
         document.body.appendChild(script);
     }
     return fetch(streams)
