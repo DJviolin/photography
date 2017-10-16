@@ -44,21 +44,31 @@ var init = function (city, debug) {
         `;
     }
     function qrCodeDisplay(url) {
-        return `
-            <script type="text/javascript" defer>
-                console.log('Hello, World from qrData!');
-                var qrData = {
-                    size: 295, // 2.5cm at 300dpi
-                    url: "http://magyarkert.com/qr/?c=${url}",
-                };
-                jQuery('#qrcodeCanvas').qrcode({
-                    render: "canvas",
-                    width: qrData.size,
-                    height: qrData.size,
-                    text: qrData.url,
-                });	
-            </script>
-        `;
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.charset = 'utf-8';
+        script.id = 'qrcode';
+        script.defer = true;
+        script.async = false;
+        script.onload = function () {
+            console.log('The script is loaded');
+        }
+        script.text = "" +
+            "console.log('Hello, World from qrData!');" +
+            "var qrData = {" +
+            "    size: 295, /*2.5cm at 300dpi*/" +
+            "    url: \"http://magyarkert.com/qr/?c=" + url + "\"," +
+            "};" +
+            "jQuery('#qrcodeCanvas').qrcode({" +
+            "    render: \"canvas\"," +
+            "    width: qrData.size," +
+            "    height: qrData.size," +
+            "    text: qrData.url," +
+            "});" +
+        "";
+        //var body = document.getElementsByTagName('body')[0];
+        //body.appendChild(script);
+        document.body.appendChild(script);
     }
     return fetch(streams)
         .then(response => (response.ok ? response.json() : console.log('fetch(streams): Network response was not ok.')))
@@ -74,33 +84,7 @@ var init = function (city, debug) {
             //div.innerHTML += qrCodeDisplay(json.url);
             //document.body.appendChild(div);
             if (debug === "true") {
-                document.body.innerHTML += qrCodeDisplay(json.url);
-
-                var script = document.createElement('script');
-                script.type = 'text/javascript';
-                script.charset = 'utf-8';
-                script.id = 'qrcode';
-                script.defer = true;
-                script.async = false;
-                script.onload = function () {
-                    console.log('The script is loaded');
-                }
-                script.text = "" +
-                    "console.log('Hello, World from qrData!');" +
-                    "var qrData = {" +
-                    "    size: 295, /*2.5cm at 300dpi*/" +
-                    "    url: \"http://magyarkert.com/qr/?c=${url}\"," +
-                    "};" +
-                    "jQuery('#qrcodeCanvas').qrcode({" +
-                    "    render: \"canvas\"," +
-                    "    width: qrData.size," +
-                    "    height: qrData.size," +
-                    "    text: qrData.url," +
-                    "});" +
-                "";
-                //var body = document.getElementsByTagName('body')[0];
-                //body.appendChild(script);
-                document.body.appendChild(script);
+                qrCodeDisplay(json.url);
             }
         })
         .catch((error) => {
