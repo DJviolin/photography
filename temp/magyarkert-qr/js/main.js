@@ -44,7 +44,10 @@
 var app = {
     // Application Constructor
     initialize: function () {
-        document.addEventListener('DOMContentLoaded', this.onDeviceReady.bind(this), false);
+        //document.addEventListener('DOMContentLoaded', this.onDeviceReady.bind(this), false);
+
+        var _this = this;
+        document.addEventListener('DOMContentLoaded', _this.onDeviceReady.bind(_this), false);
     },
 
     // deviceready Event Handler
