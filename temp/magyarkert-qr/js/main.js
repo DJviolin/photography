@@ -56,7 +56,7 @@ var app = {
         if (window.fetch !== undefined) {
             return _this.receivedEvent('deviceready');
         } else {
-            scriptLoader('//rawcdn.githack.com/github/fetch/v2.0.3/fetch.js', function () {
+            _this.scriptLoader('//rawcdn.githack.com/github/fetch/v2.0.3/fetch.js', function () {
                 console.log("window.fetch === " + window.fetch); // undefined
                 return _this.receivedEvent('deviceready');
             });
