@@ -53,12 +53,14 @@ var app = {
     onDeviceReady: function () {
         var _this = this;
 
-        if (window.fetch !== undefined) {
+        if (window.fetch) {
             return _this.receivedEvent('deviceready');
         } else {
-            _this.scriptLoader('//rawcdn.githack.com/github/fetch/v2.0.3/fetch.js', function () {
-                //console.log("window.fetch === " + window.fetch); // undefined
-                return _this.receivedEvent('deviceready');
+            _this.scriptLoader('//rawcdn.githack.com/taylorhakes/promise-polyfill/e20aa9031b0352d695fc0428cb8bc0145ffc5519/promise.min.js', function () {
+                _this.scriptLoader('//rawcdn.githack.com/github/fetch/v2.0.3/fetch.js', function () {
+                    //console.log("window.fetch === " + window.fetch); // undefined
+                    return _this.receivedEvent('deviceready');
+                });
             });
         }
     },
