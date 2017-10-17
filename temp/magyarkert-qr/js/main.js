@@ -45,7 +45,7 @@ var app = {
     // Application Constructor
     initialize: function () {
         var _this = this;
-        
+
         document.addEventListener('DOMContentLoaded', _this.onDeviceReady.bind(_this), false);
     },
 
@@ -96,7 +96,7 @@ var app = {
         return head.appendChild(script);
     },
 
-    apiDisplay: function (name, description, pictures) {
+    /*apiDisplay: function (name, description, pictures) {
 		return `
 			<article class="city">
 				<p>${name}</p>
@@ -105,8 +105,17 @@ var app = {
 				<p>${pictures.map(item => `<img src="${item}" alt="" />`).join('')}</p>
 			</article>
 		`;
+    },*/
+    apiDisplay: function (name, description, pictures) {
+		return "" +
+			"<article class=\"city\">" +
+				"<p>" + name + "</p>" +
+				"<p>" + description + "</p>" +
+				"<p>" + pictures.map(item => "<img src=\"" + item + "\" alt=\"\" />").join('') + "</p>" +
+			"</article>" +
+		"";
     },
-    
+
     qrCodeDisplay: function (url, size) {
         var _this = this;
 
@@ -142,7 +151,7 @@ var app = {
     // Update DOM on a Received Event
     receivedEvent: function (id) {
         var _this = this;
-        
+
         var city = _this.getParameterByName('c');
         var debug = _this.getParameterByName('debug');
         var data = {
