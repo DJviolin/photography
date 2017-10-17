@@ -60,7 +60,7 @@ var data = {
 
 /*
 	// Dynamic script loader with integrated callback hell
-	
+
 	// Usage:
 	scriptLoader('a1.js', function () {
 		scriptLoader('a2.js', function () {
@@ -142,5 +142,8 @@ var init = function (city, debug) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+	if (window.fetch === undefined) {
+		console.log("window.fetch === " + window.fetch);
+	}
 	return init(data.city, data.debug);
 });
