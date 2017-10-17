@@ -57,7 +57,7 @@ var app = {
             return _this.receivedEvent('deviceready');
         } else {
             _this.scriptLoader('//rawcdn.githack.com/github/fetch/v2.0.3/fetch.js', function () {
-                console.log("window.fetch === " + window.fetch); // undefined
+                //console.log("window.fetch === " + window.fetch); // undefined
                 return _this.receivedEvent('deviceready');
             });
         }
