@@ -85,18 +85,79 @@ var app = {
         head.appendChild(script);
     },
 
+    apiDisplay: function (name, description, pictures) {
+		return `
+			<article class="city">
+				<p>${name}</p>
+				<p>${description}</p>
+				<p>${pictures}</p>
+				<p>${pictures.map(item => `<img src="${item}" alt="" />`).join('')}</p>
+			</article>
+		`;
+    },
+    
+    qrCodeDisplay: function (url, size) {
+        var _this = this;
+		_this.scriptLoader('js/vendor/jquery.min.js', function () {
+			_this.scriptLoader('js/vendor/jquery.qrcode.min.js', function () {
+				console.log('scriptLoader started!');
+				var script = document.createElement('script');
+				script.type = 'text/javascript';
+				script.onload = function () {
+					console.log('The script is loaded');
+				}
+				script.text = "" +
+					"console.log('qrData started!');" +
+					"var qrData = {" +
+					"    size: " + size + "," +
+					"    url: \"http://magyarkert.com/qr/?c=" + url + "\"," +
+					"};" +
+					"jQuery('#qrcodeCanvas').qrcode({" +
+					"    render: \"canvas\"," +
+					"    width: qrData.size," +
+					"    height: qrData.size," +
+					"    text: qrData.url," +
+					"});" +
+				"";
+				script.defer = true;
+				var head = document.getElementsByTagName('head')[0];
+				head.appendChild(script);
+				//document.body.appendChild(script);
+			});
+		});
+	},
+
     // Update DOM on a Received Event
     receivedEvent: function (id) {
-		const app = document.getElementById(id);
-        app.innerHTML += "Hello, World from deviceready constructor!";
+        var _this = this;
         
-        var city = this.getParameterByName('c');
-        var debug = this.getParameterByName('debug');
+        var city = _this.getParameterByName('c');
+        var debug = _this.getParameterByName('debug');
         var data = {
             city: city,
             debug: debug,
         };
-        console.log(`data.city === ${data.city}`);
+        //console.log(`data.city === ${data.city}`);
+
+        const app = document.getElementById(id);
+        var streams = 'data/' + data.city + '/data.json';
+        return fetch(streams)
+            .then(response => (response.ok ? response.json() : console.log('fetch(streams): Network response was not ok.')))
+            .then((json) => {
+                app.innerHTML += _this.apiDisplay(
+                    json.name,
+                    json.description,
+                    json.pictures,
+                );
+                //console.log(`${JSON.stringify(json, null, 4)}`);
+                if (debug === "true") {
+                    _this.qrCodeDisplay(json.url, 295); // 2.5cm at 300dpi
+                }
+            })
+            .catch((error) => {
+                app.innerHTML = "<h1>404</h1><h3>Az oldal nem létezik</3>";
+                //console.log('fetch(catch): Network response was not ok.')
+            });
 
         console.log('Received Event: ' + id);
     }
