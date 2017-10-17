@@ -63,6 +63,28 @@ var app = {
         return decodeURIComponent(results[2].replace(/\+/g, ' '));
     },
 
+    /*
+        // Dynamic script loader with integrated callback hell
+
+        // Usage:
+        scriptLoader('a1.js', function () {
+            scriptLoader('a2.js', function () {
+                console.log('Hello');
+            });
+        });
+    */
+    scriptLoader: function (filename, callback) {
+        var head = document.getElementsByTagName('head')[0];
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = filename;
+        script.defer = true;
+        if (typeof callback === 'function') {
+            script.onload = callback;
+        }
+        head.appendChild(script);
+    },
+
     // Update DOM on a Received Event
     receivedEvent: function (id) {
 		const app = document.getElementById(id);
