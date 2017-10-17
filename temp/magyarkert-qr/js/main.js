@@ -103,7 +103,7 @@ var init = function (city, debug) {
 					console.log('The script is loaded');
 				}
 				script.text = "" +
-					"console.log('Hello, World from qrData!');" +
+					"console.log('qrData started!');" +
 					"var qrData = {" +
 					"    size: " + size + "," +
 					"    url: \"http://magyarkert.com/qr/?c=" + url + "\"," +
