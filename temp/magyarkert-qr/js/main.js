@@ -93,7 +93,7 @@ var init = function (city, debug) {
 			</article>
 		`;
 	}
-	function qrCodeDisplay(url) {
+	function qrCodeDisplay(url, size) {
 		scriptLoader('js/vendor/jquery.min.js', function () {
 			scriptLoader('js/vendor/jquery.qrcode.min.js', function () {
 				console.log('scriptLoader started!');
@@ -105,7 +105,7 @@ var init = function (city, debug) {
 				script.text = "" +
 					"console.log('Hello, World from qrData!');" +
 					"var qrData = {" +
-					"    size: 295," + // 2.5cm at 300dpi
+					"    size: " + size + "," +
 					"    url: \"http://magyarkert.com/qr/?c=" + url + "\"," +
 					"};" +
 					"jQuery('#qrcodeCanvas').qrcode({" +
@@ -132,7 +132,7 @@ var init = function (city, debug) {
 			);
 			//console.log(`${JSON.stringify(json, null, 4)}`);
 			if (debug === "true") {
-				qrCodeDisplay(json.url);
+				qrCodeDisplay(json.url, 295); // 2.5cm at 300dpi
 			}
 		})
 		.catch((error) => {
