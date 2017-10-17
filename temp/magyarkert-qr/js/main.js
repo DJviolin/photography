@@ -57,7 +57,7 @@ var data = {
 };
 //console.log(`city == ${data.city}`);
 
-// Dynamic script loader
+// Dynamic script loader with callback hell
 var scriptLoader = function (filename, callback) {
     var head = document.getElementsByTagName('head')[0];
     var script = document.createElement('script');
