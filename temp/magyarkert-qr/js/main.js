@@ -143,11 +143,11 @@ var init = function (city, debug) {
 
 document.addEventListener('DOMContentLoaded', function () {
 	if (window.fetch !== undefined) {
+		return init(data.city, data.debug);
+	} else {
 		scriptLoader('//rawcdn.githack.com/github/fetch/v2.0.3/fetch.js', function () {
 			console.log("window.fetch === " + window.fetch);
 			return init(data.city, data.debug);
 		});
-	} else {
-		return init(data.city, data.debug);
 	}
 });
