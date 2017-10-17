@@ -169,7 +169,7 @@ var app = {
                 //console.log('fetch(catch): Network response was not ok.')
             });
 
-        console.log('Received Event: ' + id);
+        //console.log('Received Event: ' + id);
     }
 };
 
