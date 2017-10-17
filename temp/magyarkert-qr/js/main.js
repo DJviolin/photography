@@ -116,7 +116,9 @@ var init = function (city, debug) {
                     "    text: qrData.url," +
                     "});" +
                 "";
-                document.body.appendChild(script);
+                //document.body.appendChild(script);
+                var head = document.getElementsByTagName('head')[0];
+                head.appendChild(script);
             });
         });
     }
