@@ -162,14 +162,13 @@ var app = {
                 //console.log(`${JSON.stringify(json, null, 4)}`);
                 if (debug === "true") {
                     _this.qrCodeDisplay(json.url, 295); // 2.5cm at 300dpi
+                    console.log('Received Event: ' + id);
                 }
             })
             .catch((error) => {
                 app.innerHTML = "<h1>404</h1><h3>Az oldal nem létezik</3>";
                 //console.log('fetch(catch): Network response was not ok.')
             });
-
-        //console.log('Received Event: ' + id);
     }
 };
 
