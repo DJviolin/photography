@@ -110,14 +110,14 @@ var app = {
         var _this = this;
 		_this.scriptLoader('js/vendor/jquery.min.js', function () {
 			_this.scriptLoader('js/vendor/jquery.qrcode.min.js', function () {
-				console.log('scriptLoader started!');
+				//console.log('scriptLoader started!');
 				var script = document.createElement('script');
 				script.type = 'text/javascript';
-				script.onload = function () {
-					console.log('The script is loaded');
-				}
+				//script.onload = function () {
+				//	console.log('The script is loaded');
+				//}
 				script.text = "" +
-					"console.log('qrData started!');" +
+					//"console.log('qrData started!');" +
 					"var qrData = {" +
 					"    size: " + size + "," +
 					"    url: \"http://magyarkert.com/qr/?c=" + url + "\"," +
