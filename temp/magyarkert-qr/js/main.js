@@ -44,17 +44,15 @@
 var app = {
     // Application Constructor
     initialize: function () {
-        //document.addEventListener('DOMContentLoaded', this.onDeviceReady.bind(this), false);
-
         var _this = this;
+        
         document.addEventListener('DOMContentLoaded', _this.onDeviceReady.bind(_this), false);
     },
 
     // deviceready Event Handler
     onDeviceReady: function () {
-        //this.receivedEvent('deviceready');
-
         var _this = this;
+
         if (window.fetch !== undefined) {
             return _this.receivedEvent('deviceready');
         } else {
@@ -95,7 +93,7 @@ var app = {
         if (typeof callback === 'function') {
             script.onload = callback;
         }
-        head.appendChild(script);
+        return head.appendChild(script);
     },
 
     apiDisplay: function (name, description, pictures) {
@@ -111,7 +109,8 @@ var app = {
     
     qrCodeDisplay: function (url, size) {
         var _this = this;
-		_this.scriptLoader('js/vendor/jquery.min.js', function () {
+
+		return _this.scriptLoader('js/vendor/jquery.min.js', function () {
 			_this.scriptLoader('js/vendor/jquery.qrcode.min.js', function () {
 				//console.log('scriptLoader started!');
 				var script = document.createElement('script');
@@ -154,6 +153,7 @@ var app = {
 
         const app = document.getElementById(id);
         var streams = 'data/' + data.city + '/data.json';
+
         return fetch(streams)
             .then(response => (response.ok ? response.json() : console.log('fetch(streams): Network response was not ok.')))
             .then((json) => {
