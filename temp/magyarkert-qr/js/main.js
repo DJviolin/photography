@@ -9,9 +9,37 @@
     https://github.com/github/fetch
 
     URL LIST:
-    http://magyarkert.com/qr/?c=jakabszallas
+    http://magyarkert.com/qr/?c=jakabszallas&debug=true
+
+    Dynamic script loading:
+    https://plnkr.co/edit/b9O19f?p=preview
+    https://github.com/newbreedofgeek/dynamic-js-script-loader
 */
 
+// Avoid `console` errors in browsers that lack a console.
+(function() {
+    var method;
+    var noop = function () {};
+    var methods = [
+        'assert', 'clear', 'count', 'debug', 'dir', 'dirxml', 'error',
+        'exception', 'group', 'groupCollapsed', 'groupEnd', 'info', 'log',
+        'markTimeline', 'profile', 'profileEnd', 'table', 'time', 'timeEnd',
+        'timeline', 'timelineEnd', 'timeStamp', 'trace', 'warn'
+    ];
+    var length = methods.length;
+    var console = (window.console = window.console || {});
+
+    while (length--) {
+        method = methods[length];
+
+        // Only stub undefined methods.
+        if (!console[method]) {
+            console[method] = noop;
+        }
+    }
+}());
+
+// Query strings parser
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
     name = name.replace(/[\[\]]/g, '\\$&');
@@ -23,12 +51,24 @@ function getParameterByName(name, url) {
 }
 var city = getParameterByName('c');
 var debug = getParameterByName('debug');
-//var data = {
-data = {
+var data = {
     city: city,
     debug: debug,
 };
 //console.log(`city == ${data.city}`);
+
+// Dynamic script loader
+var scriptLoader = function (filename, callback) {
+    var head = document.getElementsByTagName('head')[0];
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = filename;
+    script.defer = true;
+    if (typeof callback === 'function') {
+        script.onload = callback;
+    }
+    head.appendChild(script);
+};
 
 var init = function (city, debug) {
     const app = document.getElementById('app');
