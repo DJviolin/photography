@@ -11,7 +11,8 @@
     https://github.com/github/fetch
     https://github.com/taylorhakes/promise-polyfill
 
-	Dynamic script loading:
+    Dynamic script loading:
+    https://youtu.be/i_qE1iAmjFg?t=28m59s
 	https://plnkr.co/edit/b9O19f?p=preview
 	https://github.com/newbreedofgeek/dynamic-js-script-loader
 */
