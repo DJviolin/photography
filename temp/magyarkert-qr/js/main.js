@@ -1,17 +1,15 @@
 'use strict';
 
 /*
+	URL LIST:
+    http://magyarkert.com/qr/?c=jakabszallas&debug=true
+
 	TODO (es2015, stage-2, Minify):
 	https://babeljs.io/repl/
 
-	TODO:
-	- IE 11 error for temlate literals
-
 	Polyfill:
-	https://github.com/github/fetch
-
-	URL LIST:
-	http://magyarkert.com/qr/?c=jakabszallas&debug=true
+    https://github.com/github/fetch
+    https://github.com/taylorhakes/promise-polyfill
 
 	Dynamic script loading:
 	https://plnkr.co/edit/b9O19f?p=preview
