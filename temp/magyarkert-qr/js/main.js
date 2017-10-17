@@ -106,15 +106,6 @@ var app = {
 			</article>
 		`;
     },*/
-    /*apiDisplay: function (name, description, pictures) {
-		return "" +
-			"<article class=\"city\">" +
-				"<p>" + name + "</p>" +
-				"<p>" + description + "</p>" +
-				"<p>" + pictures.map(item => "<img src=\"" + item + "\" alt=\"\" />").join('') + "</p>" +
-			"</article>" +
-		"";
-    },*/
     apiDisplay: function (name, description, pictures) {
 		return "" +
 			"<article class=\"city\">" +
