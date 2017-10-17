@@ -29,10 +29,28 @@ var app = {
         this.receivedEvent('deviceready');
     },
 
+    getParameterByName2: function (name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, '\\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+        var results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    },
+
     // Update DOM on a Received Event
     receivedEvent: function (id) {
 		const app = document.getElementById(id);
-		app.innerHTML += "Hello, World from deviceready constructor!";
+        app.innerHTML += "Hello, World from deviceready constructor!";
+        
+        var city = this.getParameterByName2('c');
+        var debug = this.getParameterByName2('debug');
+        var data = {
+            city: city,
+            debug: debug,
+        };
+        console.log(`data.city === ${data.city}`);
 
         console.log('Received Event: ' + id);
     }
