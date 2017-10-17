@@ -29,6 +29,7 @@ var app = {
         this.receivedEvent('deviceready');
     },
 
+    // Business logic starts here
     getParameterByName: function (name, url) {
         if (!url) url = window.location.href;
         name = name.replace(/[\[\]]/g, '\\$&');
