@@ -99,7 +99,6 @@ var init = function (city, debug) {
                 console.log('scriptLoader started!');
                 var script = document.createElement('script');
                 script.type = 'text/javascript';
-                script.defer = true;
                 script.onload = function () {
                     console.log('The script is loaded');
                 }
@@ -116,6 +115,7 @@ var init = function (city, debug) {
                     "    text: qrData.url," +
                     "});" +
                 "";
+                script.defer = true;
                 //document.body.appendChild(script);
                 var head = document.getElementsByTagName('head')[0];
                 head.appendChild(script);
