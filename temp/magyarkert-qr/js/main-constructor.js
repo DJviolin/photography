@@ -29,7 +29,7 @@ var app = {
         this.receivedEvent('deviceready');
     },
 
-    getParameterByName2: function (name, url) {
+    getParameterByName: function (name, url) {
         if (!url) url = window.location.href;
         name = name.replace(/[\[\]]/g, '\\$&');
         var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
@@ -44,8 +44,8 @@ var app = {
 		const app = document.getElementById(id);
         app.innerHTML += "Hello, World from deviceready constructor!";
         
-        var city = this.getParameterByName2('c');
-        var debug = this.getParameterByName2('debug');
+        var city = this.getParameterByName('c');
+        var debug = this.getParameterByName('debug');
         var data = {
             city: city,
             debug: debug,
