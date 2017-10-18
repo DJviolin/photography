@@ -170,9 +170,21 @@ var app = {
     responsiveVoice: function (text) {
         var _this = this;
         const voice = document.getElementById("voice");
-        return voice.innerHTML += `
-            <input onclick='responsiveVoice.speak("${text}", "Hungarian Male", {volume: 1});' type='button' value='🔊 Play' />
-        `;
+
+        //voice.innerHTML += `
+        //    <input onclick='responsiveVoice.speak("${text}", "Hungarian Male", {volume: 1});' type='button' value='🔊 Play' />
+        //`;
+
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.onload = function () {
+        	console.log('responsiveVoice loaded!');
+        }
+        script.text = "" +
+            "responsiveVoice.speak(\"" + text + "\", \"Hungarian Male\", {volume: 1});" +
+        "";
+        script.defer = true;
+        voice.appendChild(script);
     },
 
     // Update DOM on a Received Event
