@@ -192,7 +192,10 @@ var app = {
                 
                 //_this.responsiveVoice(json.description);
                 const voice = document.getElementById("voice");
-                voice.innerHTML += "<input onclick='responsiveVoice.speak(\"" + json.voice + "\");' type='button' value='🔊 Play' />";
+                //voice.innerHTML += "<input onclick='responsiveVoice.speak(\"" + json.voice + "\");' type='button' value='🔊 Play' />";
+                voice.innerHTML += `
+                    <input onclick='responsiveVoice.speak("${json.voice}", "Hungarian Male", {volume: 1});' type='button' value='🔊 Play' />
+                `;
 
                 //console.log(`${JSON.stringify(json, null, 4)}`);
                 if (_this.queryString().debug === "true") {
