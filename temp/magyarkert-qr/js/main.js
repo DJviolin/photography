@@ -176,12 +176,12 @@ var app = {
     receivedEvent: function (id) {
         var _this = this;
 
-        var city = _this.getParameterByName('c');
+        /*var city = _this.getParameterByName('c');
         var debug = _this.getParameterByName('debug');
         var data = {
             city: city,
             debug: debug,
-        };
+        };*/
         //console.log(`data.city === ${data.city}`);
 
         const app = document.getElementById(id);
