@@ -133,14 +133,14 @@ var app = {
 				script.text = "" +
 					//"console.log('qrData started!');" +
 					"var qrData = {" +
-					"    size: " + size + "," +
-					"    url: \"http://magyarkert.com/qr/?c=" + url + "\"," +
+					    "size: " + size + "," +
+					    "url: \"http://magyarkert.com/qr/?c=" + url + "\"," +
 					"};" +
 					"jQuery('#qrcodeCanvas').qrcode({" +
-					"    render: \"canvas\"," +
-					"    width: qrData.size," +
-					"    height: qrData.size," +
-					"    text: qrData.url," +
+					    "render: \"canvas\"," +
+					    "width: qrData.size," +
+					    "height: qrData.size," +
+					    "text: qrData.url," +
 					"});" +
 				"";
 				script.defer = true;
