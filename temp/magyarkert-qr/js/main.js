@@ -114,17 +114,6 @@ var app = {
         return head.appendChild(script);
     },
 
-    /*apiDisplay: function (name, description, pictures) {
-		return "" +
-			"<article class=\"city\">" +
-				"<p>" + name + "</p>" +
-				"<p>" + description + "</p>" +
-                "<p>" + pictures.map(function (item) {
-                            return "<img src=\"" + item + "\" alt=\"\" />";
-                        }).join('') + "</p>" +
-			"</article>" +
-		"";
-    },*/
     apiDisplay: function (name, description, pictures) {
 		return `
 			<article class="city">
@@ -140,14 +129,9 @@ var app = {
 
 		return _this.scriptLoader('js/vendor/jquery.min.js', function () {
 			_this.scriptLoader('js/vendor/jquery.qrcode.min.js', function () {
-				//console.log('scriptLoader started!');
 				var script = document.createElement('script');
 				script.type = 'text/javascript';
-				//script.onload = function () {
-				//	console.log('The script is loaded');
-				//}
 				script.text = "" +
-					//"console.log('qrData started!');" +
 					"var qrData = {" +
 					    "size: " + size + "," +
 					    "url: \"http://magyarkert.com/qr/?c=" + url + "\"," +
@@ -162,11 +146,10 @@ var app = {
 				script.defer = true;
 				var head = document.getElementsByTagName('head')[0];
 				head.appendChild(script);
-				//document.body.appendChild(script);
 			});
 		});
     },
-    
+
     responsiveVoice: function (text) {
         var _this = this;
         const voice = document.getElementById("voice");
