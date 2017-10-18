@@ -2,7 +2,7 @@
     "url": "jakabszallas",
     "name": "Jakabszállás",
     "voice": "Jakabszállás község Kecskeméttől 17 km-re délnyugatra található. Jó közlekedési adottságokkal rendelkezik: az 54-es út mentén fekszik, áthalad rajta a kiskunsági kisvasút. A község megközelíthető a település mellett korszerűen kiépített magánrepülőtéren is. A településnek jó az autóbuszközlekedése a megyeszékhely, Kecskemét felé.",
-    "description": "Ez egy leírás amely <a href=\"#\">linket</a> is tartalmaz!",
+    "description": "<a href=\"http://jakabszallas.hu\">Jakabszállás</a> község Kecskeméttől 17 km-re délnyugatra található. Jó közlekedési adottságokkal rendelkezik: az 54-es út mentén fekszik, áthalad rajta a kiskunsági kisvasút. A község megközelíthető a település mellett korszerűen kiépített magánrepülőtéren is. A településnek jó az autóbuszközlekedése a megyeszékhely, Kecskemét felé.",
     "pictures": [
         "https://upload.wikimedia.org/wikipedia/commons/e/e6/Jakabsz%C3%A1ll%C3%A1s2.jpg",
         "https://upload.wikimedia.org/wikipedia/commons/d/dd/Jakabsz%C3%A1ll%C3%A1s1.jpg"
