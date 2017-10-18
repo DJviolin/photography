@@ -5,7 +5,13 @@
     http://magyarkert.com/qr/?c=jakabszallas&debug=true
 
 	TODO (es2015, stage-2, Minify):
-	https://babeljs.io/repl/
+    https://babeljs.io/repl/
+    
+    ResponsiveVoice.js:
+    https://responsivevoice.org/text-to-speech-languages/magyar-szoveget-beszedde/
+    https://github.com/ResponsiveVoice/ResponsiveVoice
+    https://responsivevoice.org/license/
+    https://codepen.io/omgwtfbrblolttyl/pen/qZXYVJ
 
 	Polyfill:
     https://github.com/github/fetch
