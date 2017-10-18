@@ -124,7 +124,7 @@ var app = {
 		`;
     },
 
-    qrCodeDisplay: function (url, size) {
+    qrCodeDisplay: function (url, size, border) {
         var _this = this;
 
 		return _this.scriptLoader('js/vendor/jquery.min.js', function () {
@@ -185,7 +185,7 @@ var app = {
                 _this.responsiveVoice(json.voice);
                 //console.log(`${JSON.stringify(json, null, 4)}`);
                 if (_this.queryString().debug === "true") {
-                    _this.qrCodeDisplay(json.url, 295); // 2.5cm at 300dpi
+                    _this.qrCodeDisplay(json.url, 295, 100); // 2.5cm at 300dpi
                     console.log('Received Event: ' + id);
                 }
             })
