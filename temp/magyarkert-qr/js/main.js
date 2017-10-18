@@ -201,10 +201,10 @@ var app = {
                     json.description,
                     json.pictures,
                 );
+                _this.responsiveVoice(json.description);
                 //console.log(`${JSON.stringify(json, null, 4)}`);
                 if (_this.queryString().debug === "true") {
                     _this.qrCodeDisplay(json.url, 295); // 2.5cm at 300dpi
-                    _this.responsiveVoice(json.description);
                     console.log('Received Event: ' + id);
                 }
             })
