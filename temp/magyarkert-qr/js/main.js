@@ -170,11 +170,6 @@ var app = {
     responsiveVoice: function (text) {
         var _this = this;
         const voice = document.getElementById("voice");
-
-        //voice.innerHTML += `
-        //    <input onclick='responsiveVoice.speak("${text}", "Hungarian Male", {volume: 1});' type='button' value='🔊 Play' />
-        //`;
-
         var script = document.createElement('script');
         script.type = 'text/javascript';
         //script.onload = function () {
