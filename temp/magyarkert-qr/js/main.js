@@ -181,9 +181,7 @@ var app = {
         });*/
 
         const div = document.getElementById("voice");
-        div.innerHTML += `
-            <input onclick='responsiveVoice.speak("${text}");' type='button' value='🔊 Play' />
-        `;
+        div.innerHTML += "<input onclick='responsiveVoice.speak(\"" + text + "\");' type='button' value='🔊 Play' />";
     },
 
     // Update DOM on a Received Event
