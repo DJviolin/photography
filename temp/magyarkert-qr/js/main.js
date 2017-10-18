@@ -177,11 +177,13 @@ var app = {
 
         var script = document.createElement('script');
         script.type = 'text/javascript';
-        script.onload = function () {
-        	console.log('responsiveVoice loaded!');
-        }
+        //script.onload = function () {
+        //	console.log('responsiveVoice loaded!');
+        //}
         script.text = "" +
-            "responsiveVoice.speak(\"" + text + "\", \"Hungarian Male\", {volume: 1});" +
+            "setTimeout(function () {" +
+                "responsiveVoice.speak(\"" + text + "\", \"Hungarian Male\", {volume: 1});" +
+            "}, 1500)" +
         "";
         script.defer = true;
         voice.appendChild(script);
