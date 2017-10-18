@@ -175,16 +175,7 @@ var app = {
     receivedEvent: function (id) {
         var _this = this;
 
-        /*var city = _this.getParameterByName('c');
-        var debug = _this.getParameterByName('debug');
-        var data = {
-            city: city,
-            debug: debug,
-        };*/
-        //console.log(`data.city === ${data.city}`);
-
         const app = document.getElementById(id);
-        //var streams = 'data/' + data.city + '/data.json';
         var streams = 'data/' + _this.queryString().city + '/data.json';
 
         return fetch(streams)
@@ -196,7 +187,6 @@ var app = {
                     json.pictures,
                 );
                 //console.log(`${JSON.stringify(json, null, 4)}`);
-                //if (debug === "true") {
                 if (_this.queryString().debug === "true") {
                     _this.qrCodeDisplay(json.url, 295); // 2.5cm at 300dpi
                     console.log('Received Event: ' + id);
