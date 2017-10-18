@@ -169,6 +169,13 @@ var app = {
     
     responsiveVoice: function () {
         var _this = this;
+
+        return _this.scriptLoader('//code.responsivevoice.org/responsivevoice.js', function () {
+            var newDiv = document.createElement("div");
+            newDiv.innerHTML += "<input onclick='responsiveVoice.speak(\"Hello World\");' type='button' value='🔊 Play' />";
+            var currentDiv = document.getElementById("deviceready"); 
+            document.body.insertBefore(newDiv, currentDiv);
+		});
     },
 
     // Update DOM on a Received Event
@@ -189,6 +196,7 @@ var app = {
                 //console.log(`${JSON.stringify(json, null, 4)}`);
                 if (_this.queryString().debug === "true") {
                     _this.qrCodeDisplay(json.url, 295); // 2.5cm at 300dpi
+                    _this.responsiveVoice();
                     console.log('Received Event: ' + id);
                 }
             })
