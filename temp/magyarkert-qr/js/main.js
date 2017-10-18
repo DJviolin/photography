@@ -174,7 +174,7 @@ var app = {
         return _this.scriptLoader('https://code.responsivevoice.org/responsivevoice.js', function () {
             var newDiv = document.createElement("div");
             newDiv.innerHTML += `
-                <input onclick='responsiveVoice.speak(${text});' type='button' value='🔊 Play' />
+                <input onclick='responsiveVoice.speak("${text}");' type='button' value='🔊 Play' />
             `;
             var currentDiv = document.getElementById("deviceready"); 
             document.body.insertBefore(newDiv, currentDiv);
