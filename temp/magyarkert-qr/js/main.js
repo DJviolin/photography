@@ -8,6 +8,7 @@
     https://babeljs.io/repl/
     
     ResponsiveVoice.js:
+    https://responsivevoice.org/api/
     https://responsivevoice.org/text-to-speech-languages/magyar-szoveget-beszedde/
     https://github.com/ResponsiveVoice/ResponsiveVoice
     https://responsivevoice.org/license/
@@ -170,7 +171,7 @@ var app = {
     responsiveVoice: function () {
         var _this = this;
 
-        return _this.scriptLoader('//code.responsivevoice.org/responsivevoice.js', function () {
+        return _this.scriptLoader('https://code.responsivevoice.org/responsivevoice.js', function () {
             var newDiv = document.createElement("div");
             newDiv.innerHTML += "<input onclick='responsiveVoice.speak(\"Hello World\");' type='button' value='🔊 Play' />";
             var currentDiv = document.getElementById("deviceready"); 
