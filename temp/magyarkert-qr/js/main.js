@@ -115,16 +115,6 @@ var app = {
     },
 
     /*apiDisplay: function (name, description, pictures) {
-		return `
-			<article class="city">
-				<p>${name}</p>
-				<p>${description}</p>
-				<p>${pictures}</p>
-				<p>${pictures.map(item => `<img src="${item}" alt="" />`).join('')}</p>
-			</article>
-		`;
-    },*/
-    apiDisplay: function (name, description, pictures) {
 		return "" +
 			"<article class=\"city\">" +
 				"<p>" + name + "</p>" +
@@ -134,6 +124,15 @@ var app = {
                         }).join('') + "</p>" +
 			"</article>" +
 		"";
+    },*/
+    apiDisplay: function (name, description, pictures) {
+		return `
+			<article class="city">
+				<p>${name}</p>
+				<p>${description}</p>
+				<p>${pictures.map(item => `<img src="${item}" alt="" />`).join('')}</p>
+			</article>
+		`;
     },
 
     qrCodeDisplay: function (url, size) {
@@ -168,11 +167,13 @@ var app = {
 		});
     },
     
-    /*responsiveVoice: function (text) {
+    responsiveVoice: function (text) {
         var _this = this;
         const voice = document.getElementById("voice");
-        voice.innerHTML += "<input onclick='responsiveVoice.speak(\"" + text + "\");' type='button' value='🔊 Play' />";
-    },*/
+        return voice.innerHTML += `
+            <input onclick='responsiveVoice.speak("${text}", "Hungarian Male", {volume: 1});' type='button' value='🔊 Play' />
+        `;
+    },
 
     // Update DOM on a Received Event
     receivedEvent: function (id) {
@@ -189,14 +190,7 @@ var app = {
                     json.description,
                     json.pictures,
                 );
-                
-                //_this.responsiveVoice(json.description);
-                const voice = document.getElementById("voice");
-                //voice.innerHTML += "<input onclick='responsiveVoice.speak(\"" + json.voice + "\");' type='button' value='🔊 Play' />";
-                voice.innerHTML += `
-                    <input onclick='responsiveVoice.speak("${json.voice}", "Hungarian Male", {volume: 1});' type='button' value='🔊 Play' />
-                `;
-
+                _this.responsiveVoice(json.voice);
                 //console.log(`${JSON.stringify(json, null, 4)}`);
                 if (_this.queryString().debug === "true") {
                     _this.qrCodeDisplay(json.url, 295); // 2.5cm at 300dpi
