@@ -168,21 +168,11 @@ var app = {
 		});
     },
     
-    responsiveVoice: function (text) {
+    /*responsiveVoice: function (text) {
         var _this = this;
-
-        /*return _this.scriptLoader('https://code.responsivevoice.org/responsivevoice.js', function () {
-            var newDiv = document.createElement("div");
-            newDiv.innerHTML += `
-                <input onclick='responsiveVoice.speak("${text}");' type='button' value='🔊 Play' />
-            `;
-            var currentDiv = document.getElementById("deviceready"); 
-            document.body.insertBefore(newDiv, currentDiv);
-        });*/
-
-        const div = document.getElementById("voice");
-        div.innerHTML += "<input onclick='responsiveVoice.speak(\"" + text + "\");' type='button' value='🔊 Play' />";
-    },
+        const voice = document.getElementById("voice");
+        voice.innerHTML += "<input onclick='responsiveVoice.speak(\"" + text + "\");' type='button' value='🔊 Play' />";
+    },*/
 
     // Update DOM on a Received Event
     receivedEvent: function (id) {
@@ -199,7 +189,11 @@ var app = {
                     json.description,
                     json.pictures,
                 );
-                _this.responsiveVoice(json.description);
+                
+                //_this.responsiveVoice(json.description);
+                const voice = document.getElementById("voice");
+                voice.innerHTML += "<input onclick='responsiveVoice.speak(\"" + json.description + "\");' type='button' value='🔊 Play' />";
+
                 //console.log(`${JSON.stringify(json, null, 4)}`);
                 if (_this.queryString().debug === "true") {
                     _this.qrCodeDisplay(json.url, 295); // 2.5cm at 300dpi
