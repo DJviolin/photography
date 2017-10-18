@@ -171,14 +171,19 @@ var app = {
     responsiveVoice: function (text) {
         var _this = this;
 
-        return _this.scriptLoader('https://code.responsivevoice.org/responsivevoice.js', function () {
+        /*return _this.scriptLoader('https://code.responsivevoice.org/responsivevoice.js', function () {
             var newDiv = document.createElement("div");
             newDiv.innerHTML += `
                 <input onclick='responsiveVoice.speak("${text}");' type='button' value='🔊 Play' />
             `;
             var currentDiv = document.getElementById("deviceready"); 
             document.body.insertBefore(newDiv, currentDiv);
-		});
+        });*/
+
+        const div = document.getElementById("voice");
+        div.innerHTML += `
+            <input onclick='responsiveVoice.speak("${text}");' type='button' value='🔊 Play' />
+        `;
     },
 
     // Update DOM on a Received Event
