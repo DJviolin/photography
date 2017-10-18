@@ -80,7 +80,6 @@ var app = {
         if (!results[2]) return '';
         return decodeURIComponent(results[2].replace(/\+/g, ' '));
     },
-
     queryString: function () {
         var _this = this;
         var city = _this.getParameterByName('c');
