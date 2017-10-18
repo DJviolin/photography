@@ -168,12 +168,14 @@ var app = {
 		});
     },
     
-    responsiveVoice: function () {
+    responsiveVoice: function (text) {
         var _this = this;
 
         return _this.scriptLoader('https://code.responsivevoice.org/responsivevoice.js', function () {
             var newDiv = document.createElement("div");
-            newDiv.innerHTML += "<input onclick='responsiveVoice.speak(\"Hello World\");' type='button' value='🔊 Play' />";
+            newDiv.innerHTML += `
+                <input onclick='responsiveVoice.speak(${text});' type='button' value='🔊 Play' />
+            `;
             var currentDiv = document.getElementById("deviceready"); 
             document.body.insertBefore(newDiv, currentDiv);
 		});
@@ -197,7 +199,7 @@ var app = {
                 //console.log(`${JSON.stringify(json, null, 4)}`);
                 if (_this.queryString().debug === "true") {
                     _this.qrCodeDisplay(json.url, 295); // 2.5cm at 300dpi
-                    _this.responsiveVoice();
+                    _this.responsiveVoice(json.description);
                     console.log('Received Event: ' + id);
                 }
             })
